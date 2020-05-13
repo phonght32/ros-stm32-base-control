@@ -97,6 +97,7 @@ stm_err_t robot_imu_init(void)
     mpu9250_cfg.fs_sel = MPU9250_FS_SEL_1000;
     mpu9250_cfg.sleep_mode = MPU9250_DISABLE_SLEEP_MODE;
     mpu9250_cfg.i2c_num = IMU_I2C_NUM;
+    mpu9250_cfg.if_protocol = MPU9250_IF_I2C;
     mpu9250_handle = mpu9250_config(&mpu9250_cfg);
     HARDWARE_CHECK(mpu9250_handle, IMU_INIT_ERR_STR, STM_FAIL);
     STM_LOGD(TAG, "Configure IMU success.");
