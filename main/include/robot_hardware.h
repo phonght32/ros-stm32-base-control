@@ -27,13 +27,6 @@
 extern "C" {
 #endif
 
-#include "stdint.h"
-
-#include "freertos/FreeRTOS.h"
-#include "freertos/queue.h"
-#include "freertos/semphr.h"
-#include "freertos/task.h"
-
 #include "stm_err.h"
 #include "stm_log.h"
 
@@ -102,6 +95,13 @@ extern "C" {
 #define IMU_I2C_NUM                         I2C_NUM_1
 #define IMU_I2C_PINSPACK                    I2C_PINS_PACK_1
 #define IMU_CLOCK_SPEED                     100000
+
+#define MPU9250_AFS_RANGE   				MPU9250_AFS_SEL_8G
+#define MPU9250_FS_RAGNE    				MPU9250_FS_SEL_1000
+#define MPU9250_CLKSEL      				MPU9250_CLKSEL_AUTO   
+#define MPU9250_DLPF        				MPU9250_41ACEL_42GYRO_BW_HZ
+#define MPU9250_SLEEP_MODE  				MPU9250_DISABLE_SLEEP_MODE
+#define MPU9250_IF_PROTOCOL					MPU9250_IF_I2C
 
 #define MADGWICK_BETA                       0.1f
 #define MADGWICK_SAMPLE_FREQ                10.0f

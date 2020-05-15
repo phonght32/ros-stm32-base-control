@@ -91,13 +91,13 @@ stm_err_t robot_imu_init(void)
     HARDWARE_CHECK(!ret, IMU_INIT_ERR_STR, STM_FAIL);
         
     mpu9250_config_t mpu9250_cfg;
-    mpu9250_cfg.afs_sel = MPU9250_AFS_SEL_8G;
-    mpu9250_cfg.clksel = MPU9250_CLKSEL_AUTO;
-    mpu9250_cfg.dlpf_cfg =  MPU9250_41ACEL_42GYRO_BW_HZ;
-    mpu9250_cfg.fs_sel = MPU9250_FS_SEL_1000;
-    mpu9250_cfg.sleep_mode = MPU9250_DISABLE_SLEEP_MODE;
+    mpu9250_cfg.afs_sel = MPU9250_AFS_RANGE;
+    mpu9250_cfg.clksel = MPU9250_CLKSEL;
+    mpu9250_cfg.dlpf_cfg =  MPU9250_DLPF;
+    mpu9250_cfg.fs_sel = MPU9250_FS_RAGNE;
+    mpu9250_cfg.sleep_mode = MPU9250_SLEEP_MODE;
     mpu9250_cfg.i2c_num = IMU_I2C_NUM;
-    mpu9250_cfg.if_protocol = MPU9250_IF_I2C;
+    mpu9250_cfg.if_protocol = MPU9250_IF_PROTOCOL;
     mpu9250_handle = mpu9250_config(&mpu9250_cfg);
     HARDWARE_CHECK(mpu9250_handle, IMU_INIT_ERR_STR, STM_FAIL);
     STM_LOGD(TAG, "Configure IMU success.");
