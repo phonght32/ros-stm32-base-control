@@ -55,25 +55,15 @@ stm_err_t robot_motor_init(void)
     motor_right = stepmotor_config(&motorright_cfg);
     HARDWARE_CHECK(motor_right, MOTOR_INIT_ERR_STR, STM_FAIL);
 
-    int ret;
+    HARDWARE_CHECK(!stepmotor_set_pwm_duty(motor_left, STEP_DRIVER_PWM_DUTYCYCLE), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, 0), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_start(motor_left), MOTOR_INIT_ERR_STR, STM_FAIL);
 
-    ret = stepmotor_set_pwm_duty(motor_left, STEP_DRIVER_PWM_DUTYCYCLE);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_set_pwm_freq(motor_left, 0);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_start(motor_left);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-
-    ret = stepmotor_set_pwm_duty(motor_right, STEP_DRIVER_PWM_DUTYCYCLE);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_set_pwm_freq(motor_right, 0);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
-    ret = stepmotor_start(motor_right);
-    HARDWARE_CHECK(!ret, MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_pwm_duty(motor_right, STEP_DRIVER_PWM_DUTYCYCLE), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, 0), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTOR_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_start(motor_right), MOTOR_INIT_ERR_STR, STM_FAIL);
 
     STM_LOGD(TAG, "Configure motor success.");
     return STM_OK;
@@ -81,14 +71,11 @@ stm_err_t robot_motor_init(void)
 
 stm_err_t robot_imu_init(void)
 {
-    int ret;
-
     i2c_config_t i2c_cfg;
     i2c_cfg.i2c_num = IMU_I2C_NUM;
     i2c_cfg.i2c_pins_pack = IMU_I2C_PINSPACK;
     i2c_cfg.clk_speed = IMU_CLOCK_SPEED;
-    ret = i2c_config(&i2c_cfg);
-    HARDWARE_CHECK(!ret, IMU_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!i2c_config(&i2c_cfg), IMU_INIT_ERR_STR, STM_FAIL);
         
     mpu9250_config_t mpu9250_cfg;
     mpu9250_cfg.afs_sel = MPU9250_AFS_RANGE;
@@ -143,12 +130,8 @@ stm_err_t robot_encoder_init(void)
     resolver_right_cfg.counter_mode = TIMER_COUNTER_UP;
     resolver_right = software_resolver_config(&resolver_right_cfg);
 
-    int ret;
-
-    ret = software_resolver_start(resolver_left);
-    HARDWARE_CHECK(!ret, RESOLVER_INIT_ERR_STR, STM_FAIL);
-    ret = software_resolver_start(resolver_right);
-    HARDWARE_CHECK(!ret, RESOLVER_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!software_resolver_start(resolver_left), RESOLVER_INIT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!software_resolver_start(resolver_right), RESOLVER_INIT_ERR_STR, STM_FAIL);
 
     STM_LOGD(TAG, "Configure resolver success");
     return STM_OK;
@@ -156,24 +139,21 @@ stm_err_t robot_encoder_init(void)
 
 stm_err_t robot_motor_left_start(void)
 {
-    int ret = stepmotor_start(motor_left);
-    HARDWARE_CHECK(!ret, MOTORLEFT_START_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_start(motor_left), MOTORLEFT_START_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
 
 stm_err_t robot_motor_left_stop(void)
 {
-    int ret = stepmotor_stop(motor_left);
-    HARDWARE_CHECK(!ret, MOTORLEFT_STOP_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_stop(motor_left), MOTORLEFT_STOP_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
 
 stm_err_t robot_motor_left_forward(void)
 {
-    int ret = stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD);
-    HARDWARE_CHECK(!ret, MOTORLEFT_FORWARD_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTORLEFT_FORWARD_ERR_STR, STM_FAIL);
     software_resolver_set_mode(resolver_left, TIMER_COUNTER_UP);
 
     return STM_OK;
@@ -181,8 +161,7 @@ stm_err_t robot_motor_left_forward(void)
 
 stm_err_t robot_motor_left_backward(void)
 {
-    int ret = stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD);
-    HARDWARE_CHECK(!ret, MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
     software_resolver_set_mode(resolver_left, TIMER_COUNTER_DOWN);
 
     return STM_OK;
@@ -190,32 +169,28 @@ stm_err_t robot_motor_left_backward(void)
 
 stm_err_t robot_motor_left_set_speed(float speed)
 {
-    int ret = stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ));
-    HARDWARE_CHECK(!ret, MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
 
 stm_err_t robot_motor_right_start(void)
 {
-    int ret = stepmotor_start(motor_right);
-    HARDWARE_CHECK(!ret, MOTORRIGHT_START_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_start(motor_right), MOTORRIGHT_START_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
 
 stm_err_t robot_motor_right_stop(void)
 {
-    int ret = stepmotor_stop(motor_right);
-    HARDWARE_CHECK(!ret, MOTORRIGHT_STOP_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_stop(motor_right), MOTORRIGHT_STOP_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
 
 stm_err_t robot_motor_right_forward(void)
 {
-    int ret = stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD);
-    HARDWARE_CHECK(!ret, MOTORRIGHT_FORWARD_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTORRIGHT_FORWARD_ERR_STR, STM_FAIL);
     software_resolver_set_mode(resolver_right, TIMER_COUNTER_UP);
 
     return STM_OK;
@@ -223,8 +198,7 @@ stm_err_t robot_motor_right_forward(void)
 
 stm_err_t robot_motor_right_backward(void)
 {
-    int ret = stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD);
-    HARDWARE_CHECK(!ret, MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
     software_resolver_set_mode(resolver_right, TIMER_COUNTER_DOWN);
 
     return STM_OK;
@@ -232,8 +206,7 @@ stm_err_t robot_motor_right_backward(void)
 
 stm_err_t robot_motor_right_set_speed(float speed)
 {
-    int ret = stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ));
-    HARDWARE_CHECK(!ret, MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
@@ -243,11 +216,8 @@ stm_err_t robot_imu_update_quat(void)
     int ret;
     imu_scale_data_t accel_scale, gyro_scale;
 
-    ret = mpu9250_get_accel_scale(mpu9250_handle, &accel_scale);
-    HARDWARE_CHECK(!ret, IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
-
-    ret = mpu9250_get_gyro_scale(mpu9250_handle, &gyro_scale);
-    HARDWARE_CHECK(!ret, IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!mpu9250_get_accel_scale(mpu9250_handle, &accel_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!mpu9250_get_gyro_scale(mpu9250_handle, &gyro_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
 
     madgwick_update_6dof(madgwick_handle,
                          DEG2RAD(gyro_scale.x_axis),
@@ -276,8 +246,7 @@ stm_err_t robot_imu_get_quat(float *quat)
 stm_err_t robot_imu_get_accel(float *accel)
 {
     imu_scale_data_t accel_data;
-    int ret = mpu9250_get_accel_scale(mpu9250_handle, &accel_data);
-    HARDWARE_CHECK(!ret, IMU_GET_ACCEL_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!mpu9250_get_accel_scale(mpu9250_handle, &accel_data), IMU_GET_ACCEL_ERR_STR, STM_FAIL);
 
     accel[0] = accel_data.x_axis;
     accel[1] = accel_data.y_axis;
@@ -289,8 +258,7 @@ stm_err_t robot_imu_get_accel(float *accel)
 stm_err_t robot_imu_get_gyro(float *gyro)
 {
     imu_scale_data_t gyro_data;
-    int ret = mpu9250_get_gyro_scale(mpu9250_handle, &gyro_data);
-    HARDWARE_CHECK(!ret, IMU_GET_GYRO_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!mpu9250_get_gyro_scale(mpu9250_handle, &gyro_data), IMU_GET_GYRO_ERR_STR, STM_FAIL);
 
     gyro[0] = gyro_data.x_axis;
     gyro[1] = gyro_data.y_axis;
