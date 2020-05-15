@@ -107,8 +107,7 @@ void ros_setup(void)
     nh.advertise(cmd_vel_motor_pub);    /*!< Register the publisher to "cmd_vel_motor" topic */
     nh.advertise(odom_pub);             /*!< Register the publisher to "odom" topic */
     nh.advertise(joint_states_pub);     /*!< Register the publisher to "joint_states" topic */
-    nh.advertise(battery_state_pub);    /*!< Register the publisher to "battery_state" topic */
-
+    
     tf_broadcaster.init(nh);            /*!< Init TransformBroadcaster */
     initOdom();                         /*!< Init odometry value */
     initJointStates();                  /*!< Init joint state */

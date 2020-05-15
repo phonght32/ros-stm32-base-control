@@ -298,9 +298,6 @@ ros::Publisher odom_pub("odom", &odom);
 sensor_msgs::JointState joint_states;
 ros::Publisher joint_states_pub("joint_states", &joint_states);
 
-sensor_msgs::BatteryState battery_state_msg;
-ros::Publisher battery_state_pub("battery_state", &battery_state_msg);
-
 /*
  * Transform Broadcaster.
  */
@@ -338,11 +335,6 @@ float goal_velocity_from_motor[WHEEL_NUM] = {0.0, 0.0}; /*!< Velocity read from 
 unsigned long prev_update_time;
 float odom_pose[3];
 float odom_vel[3];
-
-/*
- * Decalration for battery.
- */
-uint8_t battery_state = 0;
 
 /*
  * Declaration for setup flag.
