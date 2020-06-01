@@ -92,9 +92,9 @@ extern "C" {
 #define MOTORRIGHT_TICK_TIMER_NUM           TIMER_NUM_4
 #define MOTORRIGHT_TICK_TIMER_PINSPACK      TIMER_PINS_PACK_1
 
-#define IMU_I2C_NUM                         I2C_NUM_1
+#define IMU_I2C_NUM                         I2C_NUM_2
 #define IMU_I2C_PINSPACK                    I2C_PINS_PACK_1
-#define IMU_CLOCK_SPEED                     100000
+#define IMU_CLOCK_SPEED                     400000
 
 #define MPU9250_AFS_RANGE   				MPU9250_AFS_SEL_8G
 #define MPU9250_FS_RAGNE    				MPU9250_FS_SEL_1000
