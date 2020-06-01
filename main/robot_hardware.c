@@ -170,7 +170,6 @@ stm_err_t robot_motor_left_backward(void)
 stm_err_t robot_motor_left_set_speed(float speed)
 {
     HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
-    HARDWARE_CHECK(!stepmotor_set_pwm_duty(motor_left, 50), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
@@ -208,7 +207,6 @@ stm_err_t robot_motor_right_backward(void)
 stm_err_t robot_motor_right_set_speed(float speed)
 {
     HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
-    HARDWARE_CHECK(!stepmotor_set_pwm_duty(motor_right, 50), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
 
     return STM_OK;
 }
