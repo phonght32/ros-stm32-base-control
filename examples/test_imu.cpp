@@ -12,7 +12,6 @@
 
 static const char *TAG = "APP_MAIN";
 float quat_data[4];
-float accel_data[3], gyro_data[3];
 
 static void main_task(void* arg)
 {
@@ -22,15 +21,15 @@ static void main_task(void* arg)
     while (1)
     {
         robot_imu_update_quat();
-
-        robot_imu_get_accel(accel_data);
-        robot_imu_get_gyro(gyro_data);
         robot_imu_get_quat(quat_data);
 
-        STM_LOGI(TAG, "accel_x: %f\taccel_y: %f\taccel_z: %f", accel_data[0], accel_data[1], accel_data[2]);
-        STM_LOGI(TAG, "gyro_x: %f\tgyro_y: %f\tgyro_z: %f", gyro_data[0], gyro_data[1], gyro_data[2]);
-        STM_LOGI(TAG, "q0: %f\tq1: %f\t q2: %f\tq3: %f", quat_data[0], quat_data[1], quat_data[2], quat_data[3]);
-        STM_LOGI(TAG, "**********************************************************************");
+        float roll = 180.0 / 3.14 * atan2(2 * (quat_data[0] * quat_data[1] + quat_data[2] * quat_data[3]), 1 - 2 * (quat_data[1] * quat_data[1] + quat_data[2] * quat_data[2]));
+        float pitch = 180.0 / 3.14 * asin(2 * (quat_data[0] * quat_data[2] - quat_data[3] * quat_data[1]));
+        float yaw = 180.0 / 3.14 * atan2f(quat_data[0] * quat_data[3] + quat_data[1] * quat_data[2], 0.5f - quat_data[2] * quat_data[2] - quat_data[3] * quat_data[3]);
+
+        STM_LOGI(TAG, "roll: %7.4f\t\tpitch: %7.4f\t\tyaw: %7.4f\t", roll, pitch, yaw);
+        STM_LOGI(TAG, "***************************************");
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
