@@ -61,10 +61,10 @@ static void main_task(void* arg)
         if ((t - tTime[DRIVE_INFORMATION_PUBLISH_TIME_INDEX]) >= (1000 / DRIVE_INFORMATION_PUBLISH_FREQUENCY))
         {
             /* Update motor tick */
-            uint32_t left_tick, right_tick;
+            int32_t left_tick, right_tick;
             robot_encoder_left_get_tick(&left_tick);
             robot_encoder_right_get_tick(&right_tick);
-            updateMotorInfo((int32_t)left_tick, (int32_t)right_tick);
+            updateMotorInfo(left_tick, right_tick);
 
             /* Publish Odom, TF and JointState, */
             publishDriveInformation();
@@ -217,36 +217,25 @@ void updateVariable(bool isConnected)
 void updateMotorInfo(int32_t left_tick, int32_t right_tick)
 {
     int32_t current_tick = 0;
-    static int32_t last_tick[WHEEL_NUM] = {0, 0};
 
     if (init_encoder)
     {
         for (int index = 0; index < WHEEL_NUM; index++)
         {
             last_diff_tick[index] = 0;
-            last_tick[index]      = 0;
             last_rad[index]       = 0.0f;
 
             last_velocity[index]  = 0.0f;
         }
 
-        last_tick[LEFT] = left_tick;
-        last_tick[RIGHT] = right_tick;
-
         init_encoder = false;
         return;
     }
 
-    current_tick = left_tick;
-
-    last_diff_tick[LEFT] = current_tick - last_tick[LEFT];
-    last_tick[LEFT]      = current_tick;
+    last_diff_tick[LEFT] = left_tick;
     last_rad[LEFT]       += TICK2RAD * (float)last_diff_tick[LEFT];
 
-    current_tick = right_tick;
-
-    last_diff_tick[RIGHT] = current_tick - last_tick[RIGHT];
-    last_tick[RIGHT]      = current_tick;
+    last_diff_tick[RIGHT] = right_tick;
     last_rad[RIGHT]       += TICK2RAD * (float)last_diff_tick[RIGHT];
 }
 

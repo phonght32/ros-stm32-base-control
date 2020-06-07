@@ -119,14 +119,14 @@ stm_err_t robot_encoder_init(void)
     software_resolver_config_t resolver_left_cfg;
     resolver_left_cfg.timer_num = MOTORLEFT_TICK_TIMER_NUM;
     resolver_left_cfg.timer_pins_pack = MOTORLEFT_TICK_TIMER_PINSPACK;
-    resolver_left_cfg.max_reload = 60000;
+    resolver_left_cfg.max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV;
     resolver_left_cfg.counter_mode = TIMER_COUNTER_UP;
     resolver_left = software_resolver_config(&resolver_left_cfg);
 
     software_resolver_config_t resolver_right_cfg;
     resolver_right_cfg.timer_num = MOTORRIGHT_TICK_TIMER_NUM;
     resolver_right_cfg.timer_pins_pack = MOTORRIGHT_TICK_TIMER_PINSPACK;
-    resolver_right_cfg.max_reload = 60000;
+    resolver_right_cfg.max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV;
     resolver_right_cfg.counter_mode = TIMER_COUNTER_UP;
     resolver_right = software_resolver_config(&resolver_right_cfg);
 
@@ -267,15 +267,22 @@ stm_err_t robot_imu_get_gyro(float *gyro)
     return STM_OK;
 }
 
-stm_err_t robot_encoder_left_get_tick(uint32_t *left_tick)
+stm_err_t robot_encoder_left_get_tick(int32_t *left_tick)
 {
-    software_resolver_get_value(resolver_left, left_tick);
+    uint32_t temp;
+    software_resolver_get_value(resolver_left, &temp);
+    software_resolver_set_value(resolver_left, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2);
+    *left_tick = temp - NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2;
+
     return STM_OK;
 }
 
-stm_err_t robot_encoder_right_get_tick(uint32_t *right_tick)
+stm_err_t robot_encoder_right_get_tick(int32_t *right_tick)
 {
-    software_resolver_get_value(resolver_right, right_tick);
+    uint32_t temp;
+    software_resolver_get_value(resolver_right, &temp);
+    software_resolver_set_value(resolver_right, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2);
+    *right_tick = temp - NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2;
     return STM_OK;
 }
 

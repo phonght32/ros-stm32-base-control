@@ -73,7 +73,7 @@ extern "C" {
 #define VEL2FREQ        ((NUM_PULSE_PER_ROUND*MICROSTEP_DIV)/(2*PI*WHEEL_RADIUS))
 
 /* Convert motor tick to angular in radian */
-#define TICK2RAD        360.0/(NUM_PULSE_PER_ROUND*MICROSTEP_DIV)*PI/180
+#define TICK2RAD        360.0f/(NUM_PULSE_PER_ROUND*MICROSTEP_DIV)*PI/180.0f
 
 /* STM32 hardware */
 #define MOTORLEFT_PULSE_TIMER_NUM           TIMER_NUM_14
@@ -130,8 +130,8 @@ stm_err_t robot_imu_get_quat(float *quat);
 stm_err_t robot_imu_get_accel(float *accel);
 stm_err_t robot_imu_get_gyro(float *gyro);
 
-stm_err_t robot_encoder_left_get_tick(uint32_t *left_tick);
-stm_err_t robot_encoder_right_get_tick(uint32_t *right_tick);
+stm_err_t robot_encoder_left_get_tick(int32_t *left_tick);
+stm_err_t robot_encoder_right_get_tick(int32_t *right_tick);
 
 
 #ifdef __cplusplus
