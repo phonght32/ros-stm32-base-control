@@ -59,7 +59,7 @@ extern "C" {
 #define MIN_ANGULAR_VELOCITY        -MAX_ANGULAR_VELOCITY                   /*!< Min angular velocity */
 
 /* Step driver parameters */
-#define MICROSTEP_DIV               2           /*!< Step driver microstep divider */
+#define MICROSTEP_DIV               8           /*!< Step driver microstep divider */
 #define NUM_PULSE_PER_ROUND         200         /*!< The number of pulse per round of motor */
 
 /*
