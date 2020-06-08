@@ -33,6 +33,7 @@ static const char* TAG = "ROBOT HARDWARE";
 stepmotor_handle_t motor_left, motor_right;
 software_resolver_handle_t resolver_left, resolver_right;
 mpu9250_handle_t mpu9250_handle;
+ak8963_handle_t ak8963_handle;
 madgwick_handle_t madgwick_handle;
 
 stm_err_t robot_motor_init(void) 
@@ -87,17 +88,28 @@ stm_err_t robot_imu_init(void)
     mpu9250_cfg.if_protocol = MPU9250_IF_PROTOCOL;
     mpu9250_handle = mpu9250_config(&mpu9250_cfg);
     HARDWARE_CHECK(mpu9250_handle, IMU_INIT_ERR_STR, STM_FAIL);
-    STM_LOGD(TAG, "Configure IMU success.");
+
+    ak8963_config_t ak8963_cfg;
+    ak8963_cfg.opr_mode = AK8963_MODE;
+    ak8963_cfg.mfs_sel = AK8963_RESOLUTION;
+    ak8963_cfg.i2c_num = IMU_I2C_NUM;
+    ak8963_cfg.if_protocol = AK8963_IF_PROTOCOL;
+    ak8963_handle = ak8963_config(&ak8963_cfg);
+    HARDWARE_CHECK(ak8963_handle, IMU_INIT_ERR_STR, STM_FAIL);
 
     mpu9250_auto_calib(mpu9250_handle);
-    STM_LOGD(TAG, "Calibrate IMU success");
 
-    imu_bias_data_t accel_bias, gyro_bias;
-    mpu9250_get_accel_bias(mpu9250_handle, &accel_bias);
-    mpu9250_get_gyro_bias(mpu9250_handle, &gyro_bias);
-    STM_LOGD(TAG, "MPU9250 bias value:");
-    STM_LOGD(TAG, "x accel: %d\t y accel %d\t z accel %d", accel_bias.x_axis, accel_bias.y_axis, accel_bias.z_axis);
-    STM_LOGD(TAG, "x gyro: %d\t y gyro %d\t z gyro %d", gyro_bias.x_axis, gyro_bias.y_axis, gyro_bias.z_axis);
+    ak8963_hard_iron_bias_t hard_iron_bias;
+    hard_iron_bias.x_axis = 75.807022;
+    hard_iron_bias.y_axis = 17.805250;
+    hard_iron_bias.z_axis = 23.861378;
+    ak8963_set_hard_iron_bias(ak8963_handle, hard_iron_bias);
+
+    ak8963_soft_iron_corr_t soft_iron_corr;
+    soft_iron_corr.x_axis = 1.004000;
+    soft_iron_corr.y_axis = 1.032922;
+    soft_iron_corr.z_axis = 0.965385;
+    ak8963_set_soft_iron_corr(ak8963_handle, soft_iron_corr);
 
     return STM_OK;
 }
@@ -215,9 +227,11 @@ stm_err_t robot_imu_update_quat(void)
 {
     int ret;
     imu_scale_data_t accel_scale, gyro_scale;
+    ak8963_scale_data_t mag_scale;
 
     HARDWARE_CHECK(!mpu9250_get_accel_scale(mpu9250_handle, &accel_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
     HARDWARE_CHECK(!mpu9250_get_gyro_scale(mpu9250_handle, &gyro_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
+    // HARDWARE_CHECK(!ak8963_get_mag_scale(ak8963_handle, &mag_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
 
     madgwick_update_6dof(madgwick_handle,
                          DEG2RAD(gyro_scale.x_axis),
@@ -226,6 +240,17 @@ stm_err_t robot_imu_update_quat(void)
                          accel_scale.x_axis,
                          accel_scale.y_axis,
                          accel_scale.z_axis);
+
+    // madgwick_update_9dof(madgwick_handle,
+    //                      DEG2RAD(gyro_scale.x_axis),
+    //                      DEG2RAD(gyro_scale.y_axis),
+    //                      DEG2RAD(gyro_scale.z_axis),
+    //                      accel_scale.x_axis,
+    //                      accel_scale.y_axis,
+    //                      accel_scale.z_axis,
+    //                      mag_scale.x_axis,
+    //                      mag_scale.y_axis,
+    //                      mag_scale.z_axis);
 
     return STM_OK;
 }

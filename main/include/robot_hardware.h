@@ -34,6 +34,7 @@ extern "C" {
 #include "stepmotor.h"
 #include "software_resolver.h"
 #include "mpu9250.h"
+#include "ak8963.h"
 #include "madgwick.h"
 
 #define PI                  3.14159265359
@@ -102,6 +103,10 @@ extern "C" {
 #define MPU9250_DLPF        				MPU9250_41ACEL_42GYRO_BW_HZ
 #define MPU9250_SLEEP_MODE  				MPU9250_DISABLE_SLEEP_MODE
 #define MPU9250_IF_PROTOCOL					MPU9250_IF_I2C
+
+#define AK8963_MODE         				AK8963_MODE_CONT_MEASUREMENT_2
+#define AK8963_RESOLUTION   				AK8963_MFS_16BIT
+#define AK8963_IF_PROTOCOL  				AK8963_IF_I2C
 
 #define MADGWICK_BETA                       0.1f
 #define MADGWICK_SAMPLE_FREQ                10.0f
