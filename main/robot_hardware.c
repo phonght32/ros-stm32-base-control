@@ -226,7 +226,7 @@ stm_err_t robot_motor_right_set_speed(float speed)
 stm_err_t robot_imu_update_quat(void)
 {
     int ret;
-    imu_scale_data_t accel_scale, gyro_scale;
+    mpu9250_scale_data_t accel_scale, gyro_scale;
     ak8963_scale_data_t mag_scale;
 
     HARDWARE_CHECK(!mpu9250_get_accel_scale(mpu9250_handle, &accel_scale), IMU_UPDATE_QUAT_ERR_STR, STM_FAIL);
@@ -257,7 +257,7 @@ stm_err_t robot_imu_update_quat(void)
 
 stm_err_t robot_imu_get_quat(float *quat)
 {
-    imu_quat_data_t quat_data;
+    madgwick_quat_data_t quat_data;
     madgwick_get_quaternion(madgwick_handle, &quat_data);
 
     quat[0] = quat_data.q0;
@@ -270,7 +270,7 @@ stm_err_t robot_imu_get_quat(float *quat)
 
 stm_err_t robot_imu_get_accel(float *accel)
 {
-    imu_scale_data_t accel_data;
+    mpu9250_scale_data_t accel_data;
     HARDWARE_CHECK(!mpu9250_get_accel_scale(mpu9250_handle, &accel_data), IMU_GET_ACCEL_ERR_STR, STM_FAIL);
 
     accel[0] = accel_data.x_axis;
@@ -282,7 +282,7 @@ stm_err_t robot_imu_get_accel(float *accel)
 
 stm_err_t robot_imu_get_gyro(float *gyro)
 {
-    imu_scale_data_t gyro_data;
+    mpu9250_scale_data_t gyro_data;
     HARDWARE_CHECK(!mpu9250_get_gyro_scale(mpu9250_handle, &gyro_data), IMU_GET_GYRO_ERR_STR, STM_FAIL);
 
     gyro[0] = gyro_data.x_axis;

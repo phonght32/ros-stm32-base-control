@@ -30,7 +30,6 @@ extern "C" {
 #include "stm_err.h"
 #include "stm_log.h"
 
-#include "imu.h"
 #include "stepmotor.h"
 #include "software_resolver.h"
 #include "mpu9250.h"
