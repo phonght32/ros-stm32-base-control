@@ -72,7 +72,7 @@ stm_err_t robot_motor_init(void)
 
 stm_err_t robot_imu_init(void)
 {
-    i2c_config_t i2c_cfg;
+    i2c_cfg_t i2c_cfg;
     i2c_cfg.i2c_num = IMU_I2C_NUM;
     i2c_cfg.i2c_pins_pack = IMU_I2C_PINSPACK;
     i2c_cfg.clk_speed = IMU_CLOCK_SPEED;
