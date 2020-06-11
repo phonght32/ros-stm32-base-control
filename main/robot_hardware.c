@@ -78,7 +78,7 @@ stm_err_t robot_imu_init(void)
     i2c_cfg.clk_speed = IMU_CLOCK_SPEED;
     HARDWARE_CHECK(!i2c_config(&i2c_cfg), IMU_INIT_ERR_STR, STM_FAIL);
         
-    mpu9250_config_t mpu9250_cfg;
+    mpu9250_cfg_t mpu9250_cfg;
     mpu9250_cfg.afs_sel = MPU9250_AFS_RANGE;
     mpu9250_cfg.clksel = MPU9250_CLKSEL;
     mpu9250_cfg.dlpf_cfg =  MPU9250_DLPF;
@@ -86,15 +86,15 @@ stm_err_t robot_imu_init(void)
     mpu9250_cfg.sleep_mode = MPU9250_SLEEP_MODE;
     mpu9250_cfg.i2c_num = IMU_I2C_NUM;
     mpu9250_cfg.if_protocol = MPU9250_IF_PROTOCOL;
-    mpu9250_handle = mpu9250_config(&mpu9250_cfg);
+    mpu9250_handle = mpu9250_init(&mpu9250_cfg);
     HARDWARE_CHECK(mpu9250_handle, IMU_INIT_ERR_STR, STM_FAIL);
 
-    ak8963_config_t ak8963_cfg;
+    ak8963_cfg_t ak8963_cfg;
     ak8963_cfg.opr_mode = AK8963_MODE;
     ak8963_cfg.mfs_sel = AK8963_RESOLUTION;
     ak8963_cfg.i2c_num = IMU_I2C_NUM;
     ak8963_cfg.if_protocol = AK8963_IF_PROTOCOL;
-    ak8963_handle = ak8963_config(&ak8963_cfg);
+    ak8963_handle = ak8963_init(&ak8963_cfg);
     HARDWARE_CHECK(ak8963_handle, IMU_INIT_ERR_STR, STM_FAIL);
 
     mpu9250_auto_calib(mpu9250_handle);
@@ -116,10 +116,10 @@ stm_err_t robot_imu_init(void)
 
 stm_err_t robot_madgwick_filter_init(void)
 {
-    madgwick_config_t madgwick_cfg;
+    madgwick_cfg_t madgwick_cfg;
     madgwick_cfg.beta = MADGWICK_BETA;
     madgwick_cfg.sample_freq = MADGWICK_SAMPLE_FREQ;
-    madgwick_handle = madgwick_config(&madgwick_cfg);
+    madgwick_handle = madgwick_init(&madgwick_cfg);
     HARDWARE_CHECK(madgwick_handle, MADGWICK_INIT_ERR_STR, STM_FAIL);
 
     STM_LOGD(TAG, "Configure Madgwick filter success");
