@@ -167,14 +167,14 @@ stm_err_t robot_motor_left_set_speed(float speed)
 {
     if (speed < 0)
     {
-        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
-        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_DOWN), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_DOWN), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
         HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(-speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
     }
     else
     {
-        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTORLEFT_FORWARD_ERR_STR, STM_FAIL);
-        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_UP), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_UP), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
         HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
     }
 
@@ -199,14 +199,14 @@ stm_err_t robot_motor_right_set_speed(float speed)
 {
     if (speed < 0)
     {
-        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
-        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_DOWN), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_DOWN), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
         HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(-speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
     }
     else
     {
-        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTORRIGHT_FORWARD_ERR_STR, STM_FAIL);
-        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_UP), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_UP), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
         HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
     }
 
