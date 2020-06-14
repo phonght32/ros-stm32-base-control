@@ -163,25 +163,20 @@ stm_err_t robot_motor_left_stop(void)
     return STM_OK;
 }
 
-stm_err_t robot_motor_left_forward(void)
-{
-    HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTORLEFT_FORWARD_ERR_STR, STM_FAIL);
-    software_resolver_set_mode(resolver_left, TIMER_COUNTER_UP);
-
-    return STM_OK;
-}
-
-stm_err_t robot_motor_left_backward(void)
-{
-    HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
-    software_resolver_set_mode(resolver_left, TIMER_COUNTER_DOWN);
-
-    return STM_OK;
-}
-
 stm_err_t robot_motor_left_set_speed(float speed)
 {
-    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+    if (speed < 0)
+    {
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_BACKWARD), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_DOWN), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(-speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+    }
+    else
+    {
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_left, MOTORLEFT_DIR_FORWARD), MOTORLEFT_FORWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_left, TIMER_COUNTER_UP), MOTORLEFT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_left, (uint32_t)(speed * VEL2FREQ)), MOTORLEFT_SET_SPEED_ERR_STR, STM_FAIL);
+    }
 
     return STM_OK;
 }
@@ -200,25 +195,20 @@ stm_err_t robot_motor_right_stop(void)
     return STM_OK;
 }
 
-stm_err_t robot_motor_right_forward(void)
-{
-    HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTORRIGHT_FORWARD_ERR_STR, STM_FAIL);
-    software_resolver_set_mode(resolver_right, TIMER_COUNTER_UP);
-
-    return STM_OK;
-}
-
-stm_err_t robot_motor_right_backward(void)
-{
-    HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
-    software_resolver_set_mode(resolver_right, TIMER_COUNTER_DOWN);
-
-    return STM_OK;
-}
-
 stm_err_t robot_motor_right_set_speed(float speed)
 {
-    HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+    if (speed < 0)
+    {
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_BACKWARD), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_DOWN), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(-speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+    }
+    else
+    {
+        HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTORRIGHT_FORWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!software_resolver_set_mode(resolver_right, TIMER_COUNTER_UP), MOTORRIGHT_BACKWARD_ERR_STR, STM_FAIL);
+        HARDWARE_CHECK(!stepmotor_set_pwm_freq(motor_right, (uint32_t)(speed * VEL2FREQ)), MOTORRIGHT_SET_SPEED_ERR_STR, STM_FAIL);
+    }
 
     return STM_OK;
 }

@@ -595,27 +595,8 @@ void controlMotor(float *goal_vel)
     wheel_velocity_cmd[LEFT]  = constrain(wheel_velocity_cmd[LEFT], MIN_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY);
     wheel_velocity_cmd[RIGHT] = constrain(wheel_velocity_cmd[RIGHT], MIN_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY);
 
-    if (wheel_velocity_cmd[LEFT] < 0)
-    {
-        robot_motor_left_backward();
-        robot_motor_left_set_speed(-wheel_velocity_cmd[LEFT]);
-    }
-    else
-    {
-        robot_motor_left_forward();
-        robot_motor_left_set_speed(wheel_velocity_cmd[LEFT]);
-    }
-
-    if (wheel_velocity_cmd[RIGHT] < 0)
-    {
-        robot_motor_right_backward();
-        robot_motor_right_set_speed(-wheel_velocity_cmd[RIGHT]);
-    }
-    else
-    {
-        robot_motor_right_forward();
-        robot_motor_right_set_speed(wheel_velocity_cmd[RIGHT]);
-    }
+    robot_motor_left_set_speed(wheel_velocity_cmd[LEFT]);
+    robot_motor_right_set_speed(wheel_velocity_cmd[RIGHT]);
 }
 
 void getMotorSpeed(float *vel)

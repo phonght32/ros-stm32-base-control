@@ -119,14 +119,10 @@ stm_err_t robot_encoder_init(void);
 
 stm_err_t robot_motor_left_start(void);
 stm_err_t robot_motor_left_stop(void);
-stm_err_t robot_motor_left_forward(void);
-stm_err_t robot_motor_left_backward(void);
 stm_err_t robot_motor_left_set_speed(float speed);
 
 stm_err_t robot_motor_right_start(void);
 stm_err_t robot_motor_right_stop(void);
-stm_err_t robot_motor_right_forward(void);
-stm_err_t robot_motor_right_backward(void);
 stm_err_t robot_motor_right_set_speed(float speed);
 
 stm_err_t robot_imu_update_quat(void);
