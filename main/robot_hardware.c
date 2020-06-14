@@ -24,6 +24,9 @@
 #define MOTORRIGHT_SET_SPEED_ERR_STR    "motor right set speed error"
 #define MOTORRIGHT_GET_DIR_ERR_STR      "motor right get direction error"
 
+#define ENCODERLEFT_GET_TICK_ERR_STR    "encoder left get tick error"
+#define ENCODERRIGHT_GET_TICK_ERR_STR   "encoder right get tick error"
+
 static const char* TAG = "ROBOT HARDWARE";
 #define HARDWARE_CHECK(a, str, ret)  if(!(a)) {                                      \
         STM_LOGE(TAG,"%s:%d (%s):%s", __FILE__, __LINE__, __FUNCTION__, str);        \
@@ -285,8 +288,8 @@ stm_err_t robot_imu_get_gyro(float *gyro)
 stm_err_t robot_encoder_left_get_tick(int32_t *left_tick)
 {
     uint32_t temp;
-    software_resolver_get_value(resolver_left, &temp);
-    software_resolver_set_value(resolver_left, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2);
+    HARDWARE_CHECK(!software_resolver_get_value(resolver_left, &temp), ENCODERLEFT_GET_TICK_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!software_resolver_set_value(resolver_left, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2), ENCODERLEFT_GET_TICK_ERR_STR, STM_FAIL);
     *left_tick = temp - NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2;
 
     return STM_OK;
@@ -295,8 +298,8 @@ stm_err_t robot_encoder_left_get_tick(int32_t *left_tick)
 stm_err_t robot_encoder_right_get_tick(int32_t *right_tick)
 {
     uint32_t temp;
-    software_resolver_get_value(resolver_right, &temp);
-    software_resolver_set_value(resolver_right, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2);
+    HARDWARE_CHECK(!software_resolver_get_value(resolver_right, &temp), ENCODERRIGHT_GET_TICK_ERR_STR, STM_FAIL);
+    HARDWARE_CHECK(!software_resolver_set_value(resolver_right, NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2), ENCODERRIGHT_GET_TICK_ERR_STR, STM_FAIL);
     *right_tick = temp - NUM_PULSE_PER_ROUND * MICROSTEP_DIV / 2;
     return STM_OK;
 }
