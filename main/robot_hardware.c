@@ -99,17 +99,17 @@ stm_err_t robot_imu_init(void)
 
     mpu9250_auto_calib(mpu9250_handle);
 
-    ak8963_hard_iron_bias_t hard_iron_bias;
-    hard_iron_bias.x_axis = 75.807022;
-    hard_iron_bias.y_axis = 17.805250;
-    hard_iron_bias.z_axis = 23.861378;
-    ak8963_set_hard_iron_bias(ak8963_handle, hard_iron_bias);
+    // ak8963_hard_iron_bias_t hard_iron_bias;
+    // hard_iron_bias.x_axis = 75.807022;
+    // hard_iron_bias.y_axis = 17.805250;
+    // hard_iron_bias.z_axis = 23.861378;
+    // ak8963_set_hard_iron_bias(ak8963_handle, hard_iron_bias);
 
-    ak8963_soft_iron_corr_t soft_iron_corr;
-    soft_iron_corr.x_axis = 1.004000;
-    soft_iron_corr.y_axis = 1.032922;
-    soft_iron_corr.z_axis = 0.965385;
-    ak8963_set_soft_iron_corr(ak8963_handle, soft_iron_corr);
+    // ak8963_soft_iron_corr_t soft_iron_corr;
+    // soft_iron_corr.x_axis = 1.004000;
+    // soft_iron_corr.y_axis = 1.032922;
+    // soft_iron_corr.z_axis = 0.965385;
+    // ak8963_set_soft_iron_corr(ak8963_handle, soft_iron_corr);
 
     return STM_OK;
 }
