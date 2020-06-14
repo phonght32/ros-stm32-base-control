@@ -69,7 +69,6 @@ stm_err_t robot_motor_init(void)
     HARDWARE_CHECK(!stepmotor_set_dir(motor_right, MOTORRIGHT_DIR_FORWARD), MOTOR_INIT_ERR_STR, STM_FAIL);
     HARDWARE_CHECK(!stepmotor_start(motor_right), MOTOR_INIT_ERR_STR, STM_FAIL);
 
-    STM_LOGD(TAG, "Configure motor success.");
     return STM_OK;
 }
 
@@ -125,7 +124,6 @@ stm_err_t robot_madgwick_filter_init(void)
     madgwick_handle = madgwick_init(&madgwick_cfg);
     HARDWARE_CHECK(madgwick_handle, MADGWICK_INIT_ERR_STR, STM_FAIL);
 
-    STM_LOGD(TAG, "Configure Madgwick filter success");
     return STM_OK;
 }
 
@@ -148,7 +146,6 @@ stm_err_t robot_encoder_init(void)
     HARDWARE_CHECK(!software_resolver_start(resolver_left), RESOLVER_INIT_ERR_STR, STM_FAIL);
     HARDWARE_CHECK(!software_resolver_start(resolver_right), RESOLVER_INIT_ERR_STR, STM_FAIL);
 
-    STM_LOGD(TAG, "Configure resolver success");
     return STM_OK;
 }
 
