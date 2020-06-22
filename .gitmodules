@@ -4,3 +4,9 @@
 [submodule "stm-idf"]
 	path = stm-idf
 	url = git@github.com:thanhphong98/stm-idf.git
+[submodule "components/stm32_mpu9250"]
+	path = components/stm32_mpu9250
+	url = git@github.com:thanhphong98/stm32_mpu9250.git
+[submodule "components/stm32_madgwick_imu"]
+	path = components/stm32_madgwick_imu
+	url = git@github.com:thanhphong98/stm32_madgwick_imu.git
