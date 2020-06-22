@@ -1,6 +1,3 @@
-[submodule "components/stm32_motor"]
-	path = components/stm32_motor
-	url = git@github.com:thanhphong98/stm32_motor.git
 [submodule "stm-idf"]
 	path = stm-idf
 	url = git@github.com:thanhphong98/stm-idf.git
