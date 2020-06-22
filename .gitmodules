@@ -7,3 +7,9 @@
 [submodule "components/stm32_madgwick_imu"]
 	path = components/stm32_madgwick_imu
 	url = git@github.com:thanhphong98/stm32_madgwick_imu.git
+[submodule "components/stm32_stepmotor"]
+	path = components/stm32_stepmotor
+	url = git@github.com:thanhphong98/stm32_stepmotor.git
+[submodule "components/stm32_software_resolver"]
+	path = components/stm32_software_resolver
+	url = git@github.com:thanhphong98/stm32_software_resolver.git
