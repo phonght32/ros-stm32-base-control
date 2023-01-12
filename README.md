@@ -7,14 +7,14 @@ This firmware implements base control for STM32 to communicate with ROS over ros
 - Build tool - CMake to build application.
 - STM-IDF contains API for STM32 series.
 
-Follow this [link](https://github.com/thanhphong98/stm-idf) to know more about STM-IDF. 
+Follow this [link](https://github.com/phonght32/stm-idf) to know more about STM-IDF. 
 
 ## Install
 
 This repository contains many submodules, you need to install all of them to use probably.
 
 ```
-git clone --recursive git@github.com:thanhphong98/ros-stm32-base-control.git
+git clone --recursive git@github.com:phonght32/ros-stm32-base-control.git
 ```
 
 ## How to use
