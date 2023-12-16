@@ -54,6 +54,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/hardware}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu_filter}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/stepmotor}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1688694409" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

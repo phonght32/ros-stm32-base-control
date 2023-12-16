@@ -35,6 +35,94 @@ err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t l
  */
 err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms);
 
+/*
+ * @brief   Set PWM duty cycle of left motor.
+ *
+ * @param   duty Duty cycle.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_leftmotor_set_pwm_duty(float duty);
+
+/*
+ * @brief   Set PWM frequency of left motor.
+ *
+ * @param   freq Frequency.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq);
+
+/*
+ * @brief   Start motor left.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_leftmotor_start(void);
+
+/*
+ * @brief   Stop motor left.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_leftmotor_stop(void);
+
+/*
+ * @brief   Set PWM duty cycle of right motor.
+ *
+ * @param   duty Duty cycle.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_rightmotor_set_pwm_duty(float duty);
+
+/*
+ * @brief   Set PWM frequency of right motor.
+ *
+ * @param   freq Frequency.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq);
+
+/*
+ * @brief   Start motor right.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_rightmotor_start(void);
+
+/*
+ * @brief   Stop motor right.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_rightmotor_stop(void);
+
 
 #ifdef __cplusplus
 }

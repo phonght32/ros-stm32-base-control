@@ -79,6 +79,18 @@ int main(void)
     };
     base_control_set_hw_intf(base_control_cfg);
     base_control_imu_init();
+
+    base_control_motor_cfg_t motor_cfg = {
+        .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
+        .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
+        .leftmotor_start_pwm = hw_intf_leftmotor_start,
+        .leftmotor_stop_pwm = hw_intf_leftmotor_stop,
+        .rightmotor_set_pwm_duty = hw_intf_rightmotor_set_pwm_duty,
+        .rightmotor_set_pwm_freq = hw_intf_rightmotor_set_pwm_freq,
+        .rightmotor_start_pwm = hw_intf_rightmotor_start,
+        .rightmotor_stop_pwm = hw_intf_rightmotor_stop
+    };
+    base_control_motor_init(motor_cfg);
     /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
