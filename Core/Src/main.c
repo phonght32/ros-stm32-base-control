@@ -84,10 +84,12 @@ int main(void)
         .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
         .leftmotor_start_pwm = hw_intf_leftmotor_start,
         .leftmotor_stop_pwm = hw_intf_leftmotor_stop,
+        .leftmotor_set_dir = hw_intf_leftmotor_set_dir,
         .rightmotor_set_pwm_duty = hw_intf_rightmotor_set_pwm_duty,
         .rightmotor_set_pwm_freq = hw_intf_rightmotor_set_pwm_freq,
         .rightmotor_start_pwm = hw_intf_rightmotor_start,
-        .rightmotor_stop_pwm = hw_intf_rightmotor_stop
+        .rightmotor_stop_pwm = hw_intf_rightmotor_stop,
+        .rightmotor_set_dir = hw_intf_rightmotor_set_dir
     };
     base_control_motor_init(motor_cfg);
     /* USER CODE END 2 */

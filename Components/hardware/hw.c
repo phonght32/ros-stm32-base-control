@@ -12,12 +12,16 @@
 #define HW_LEFTMOTOR_TIM_CCR 			CCR1
 #define HW_LEFTMOTOR_TIM_CHANNEL 		TIM_CHANNEL_1
 #define HW_LEFTMOTOR_TIM_CLK_FREQ 		84000000
+#define HW_LEFTMOTOR_GPIO 				GPIOA
+#define HW_LEFTMOTOR_GPIO_PIN 			GPIO_PIN_3
 
 #define HW_RIGHTMOTOR_TIM_HANDLE 		htim14
 #define HW_RIGHTMOTOR_TIM 				TIM14
 #define HW_RIGHTMOTOR_TIM_CCR 			CCR1
 #define HW_RIGHTMOTOR_TIM_CHANNEL 		TIM_CHANNEL_1
 #define HW_RIGHTMOTOR_TIM_CLK_FREQ 		84000000
+#define HW_RIGHTMOTOR_GPIO 				GPIOA
+#define HW_RIGHTMOTOR_GPIO_PIN 			GPIO_PIN_2
 
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
 {
@@ -95,6 +99,13 @@ err_code_t hw_intf_leftmotor_stop(void)
 	return ERR_CODE_SUCCESS;
 }
 
+err_code_t hw_intf_leftmotor_set_dir(uint8_t dir)
+{
+	HAL_GPIO_WritePin(HW_LEFTMOTOR_GPIO, HW_LEFTMOTOR_GPIO_PIN, dir);
+
+	return ERR_CODE_SUCCESS;
+}
+
 err_code_t hw_intf_rightmotor_set_pwm_duty(float duty)
 {
 	/* Calculate PWM compare value */
@@ -142,6 +153,13 @@ err_code_t hw_intf_rightmotor_start(void)
 err_code_t hw_intf_rightmotor_stop(void)
 {
 	HAL_TIM_PWM_Stop(&HW_RIGHTMOTOR_TIM_HANDLE, HW_RIGHTMOTOR_TIM_CHANNEL);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_rightmotor_set_dir(uint8_t dir)
+{
+	HAL_GPIO_WritePin(HW_RIGHTMOTOR_GPIO, HW_RIGHTMOTOR_GPIO_PIN, dir);
 
 	return ERR_CODE_SUCCESS;
 }

@@ -80,6 +80,17 @@ err_code_t hw_intf_leftmotor_start(void);
 err_code_t hw_intf_leftmotor_stop(void);
 
 /*
+ * @brief   Set motor left direction.
+ *
+ * @param   dir Direction.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_leftmotor_set_dir(uint8_t dir);
+
+/*
  * @brief   Set PWM duty cycle of right motor.
  *
  * @param   duty Duty cycle.
@@ -122,6 +133,17 @@ err_code_t hw_intf_rightmotor_start(void);
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_stop(void);
+
+/*
+ * @brief   Set motor right direction.
+ *
+ * @param   dir Direction.
+ *
+ * @return
+ *      - Handle structure: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_rightmotor_set_dir(uint8_t dir);
 
 
 #ifdef __cplusplus
