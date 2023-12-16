@@ -1,0 +1,3 @@
+[submodule "Components/ros-base-control-fw"]
+	path = Components/ros-base-control-fw
+	url = git@github.com:phonght32/ros-base-control-fw.git
