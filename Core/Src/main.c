@@ -72,13 +72,12 @@ int main(void)
     MX_TIM13_Init();
     MX_TIM14_Init();
     /* USER CODE BEGIN 2 */
-    base_control_cfg_t base_control_cfg = {
+    base_control_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
         .delay = HAL_Delay
     };
-    base_control_set_hw_intf(base_control_cfg);
-    base_control_imu_init();
+    base_control_imu_init(imu_cfg);
 
     base_control_motor_cfg_t motor_cfg = {
         .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
