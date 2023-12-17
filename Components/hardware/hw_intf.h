@@ -256,6 +256,16 @@ err_code_t hw_intf_right_resolver_get_counter(uint32_t *value);
  */
 err_code_t hw_intf_right_resolver_set_mode(uint8_t mode);
 
+/*
+ * @brief   Serial log function interface.
+ *
+ * @param   data Pointer data.
+ * @param   len Length.
+ * @param   timeout_ms Timeout in miliseconds.
+ *
+ * @return 	None
+ */
+void hw_intf_log_func(uint8_t *data, uint16_t len, uint32_t timeout_ms);
 
 #ifdef __cplusplus
 }

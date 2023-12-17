@@ -1,7 +1,10 @@
 #include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 #include "hw_intf.h"
 #include "mpu6050/mpu6050_register.h"
+
+#define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
 #define HW_IMU_I2C hi2c2
 
@@ -282,4 +285,9 @@ err_code_t hw_intf_right_resolver_set_mode(uint8_t mode)
 	__HAL_TIM_SET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE, last_counter_val);
 
 	return ERR_CODE_SUCCESS;
+}
+
+void hw_intf_log_func(uint8_t *data, uint16_t len, uint32_t timeout_ms)
+{
+	HAL_UART_Transmit(&HW_SERIAL_LOG_UART_HANDLE, (uint8_t*)data, len, timeout_ms);
 }
