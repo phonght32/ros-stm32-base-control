@@ -31,6 +31,7 @@
 #include "periph/periph.h"
 #include "base_control.h"
 #include "base_control_hw_define.h"
+#include "serial_log.h"
 //#include "base_control.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
@@ -41,6 +42,7 @@
 /* USER CODE END PD */
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define USE_SERIAL_LOG
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
@@ -80,6 +82,10 @@ int main(void)
     MX_UART4_Init();
     MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
+    /* Initialize serial log */
+    serial_log_function_set(hw_intf_log_func, HAL_GetTick);
+
+    /* Initialize IMU */
     periph_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
@@ -87,12 +93,14 @@ int main(void)
     };
     periph_imu_init(imu_cfg);
 
+    /* Initialize madgwick filter*/
     periph_imu_filter_cfg_t imu_filter_cfg = {
         .beta = DEFAULT_MADGWICK_BETA,
         .sample_freq = DEFAULT_MADGWICK_SAMPLE_FREQ
     };
     periph_imu_filter_init(imu_filter_cfg);
 
+    /* Initialize step motor */
     periph_motor_cfg_t motor_cfg = {
         .leftmotor_dir = 0,
         .leftmotor_freq_hz = 0,
@@ -113,6 +121,7 @@ int main(void)
     };
     periph_motor_init(motor_cfg);
 
+    /* Initialize encoder*/
     periph_resolver_cfg_t resolver_cfg = {
         .left_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
         .left_resolver_start = hw_intf_left_resolver_start,
@@ -129,6 +138,7 @@ int main(void)
     };
     periph_resolver_init(resolver_cfg);
 
+    /* Initialize ROS*/
     base_control_set_ros_func(HAL_GetTick);
     base_control_ros_setup();
     /* USER CODE END 2 */
