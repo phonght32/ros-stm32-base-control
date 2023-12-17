@@ -78,7 +78,7 @@ int main(void)
     MX_TIM13_Init();
     MX_TIM14_Init();
     MX_UART4_Init();
-  /* USER CODE BEGIN 2 */
+    /* USER CODE BEGIN 2 */
     periph_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
@@ -94,7 +94,7 @@ int main(void)
 
     periph_motor_cfg_t motor_cfg = {
         .leftmotor_dir = 0,
-		.leftmotor_freq_hz = 0,
+        .leftmotor_freq_hz = 0,
         .leftmotor_duty = 0,
         .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
         .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
@@ -102,7 +102,7 @@ int main(void)
         .leftmotor_stop_pwm = hw_intf_leftmotor_stop,
         .leftmotor_set_dir = hw_intf_leftmotor_set_dir,
         .rightmotor_dir = 0,
-		.rightmotor_freq_hz = 0,
+        .rightmotor_freq_hz = 0,
         .rightmotor_duty = 0,
         .rightmotor_set_pwm_duty = hw_intf_rightmotor_set_pwm_duty,
         .rightmotor_set_pwm_freq = hw_intf_rightmotor_set_pwm_freq,
@@ -130,13 +130,79 @@ int main(void)
 
     base_control_set_ros_func(HAL_GetTick);
     base_control_ros_setup();
-  /* USER CODE END 2 */
+    /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1)
     {
         /* USER CODE END WHILE */
         /* USER CODE BEGIN 3 */
+        /* Update time counter */
+        uint32_t t = HAL_GetTick();
+
+        /* Update ROS time */
+        base_control_update_time();
+
+        /* Update variable */
+        base_control_update_variable(base_control_node_handle.connected());
+
+        /* Update TF */
+        base_control_update_tf_prefix(base_control_node_handle.connected());
+
+        /* Control motor*/
+        if ((t - base_control_time_update[CONTROL_MOTOR_TIME_INDEX] >= 1000 / CONTROL_MOTOR_SPEED_FREQUENCY))
+        {
+            base_control_update_goal_vel();
+            if ((t - base_control_time_update[CONTROL_MOTOR_TIMEOUT_TIME_INDEX]) > CONTROL_MOTOR_TIMEOUT)
+            {
+                base_control_set_vel(zero_velocity);
+            }
+            else
+            {
+                base_control_set_vel(goal_velocity);
+            }
+            base_control_time_update[CONTROL_MOTOR_TIME_INDEX] = t;
+        }
+
+        /* Publish motor speed to "cmd_vel_motor" topic */
+        if ((t - base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX]) >= (1000 / CMD_VEL_PUBLISH_FREQUENCY))
+        {
+            base_control_get_motor_speed(goal_velocity_from_motor);
+            base_control_publish_cmdvel_from_motor_msg();
+
+            base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX] = t;
+        }
+
+        /* Publish driver information */
+        if ((t - base_control_time_update[DRIVE_INFORMATION_PUBLISH_TIME_INDEX]) >= (1000 / DRIVE_INFORMATION_PUBLISH_FREQUENCY))
+        {
+            /* Update motor tick */
+            int32_t left_tick, right_tick;
+            periph_resolver_left_get_tick(&left_tick);
+            periph_resolver_right_get_tick(&right_tick);
+            base_control_update_motor_info(left_tick, right_tick);
+
+            /* Publish Odom, TF and JointState, */
+            base_control_publish_drive_info();
+            base_control_time_update[DRIVE_INFORMATION_PUBLISH_TIME_INDEX] = t;
+        }
+
+        /* Publish IMU to "imu" topic */
+        if ((t - base_control_time_update[IMU_PUBLISH_TIME_INDEX]) >= (1000 / IMU_PUBLISH_FREQUENCY))
+        {
+            periph_imu_update_quat();
+            base_control_publish_imu_msg();
+            base_control_time_update[IMU_PUBLISH_TIME_INDEX] = t;
+        }
+
+        /* Send log message */
+        base_control_send_log_msg();
+
+        /* Spin NodeHandle to keep synchorus */
+        base_control_node_handle.spinOnce();
+
+        /* Keep rosserial connection */
+        base_control_wait_serial_link(base_control_node_handle.connected());
     }
     /* USER CODE END 3 */
 }
@@ -170,8 +236,8 @@ void SystemClock_Config(void)
     }
     /** Initializes the CPU, AHB and APB buses clocks
     */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                                                            |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -189,13 +255,13 @@ void SystemClock_Config(void)
   */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
+    /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1)
     {
     }
-  /* USER CODE END Error_Handler_Debug */
+    /* USER CODE END Error_Handler_Debug */
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -207,9 +273,9 @@ void Error_Handler(void)
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* USER CODE BEGIN 6 */
+    /* USER CODE BEGIN 6 */
     /* User can add his own implementation to report the file name and line number,
        ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+    /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
