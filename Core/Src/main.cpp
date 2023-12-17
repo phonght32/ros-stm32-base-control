@@ -18,8 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -28,6 +30,8 @@
 #include "err_code.h"
 #include "hw_intf.h"
 #include "periph.h"
+#include "base_control.h"
+//#include "base_control.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
@@ -67,12 +71,14 @@ int main(void)
     /* USER CODE END SysInit */
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
+    MX_DMA_Init();
     MX_I2C2_Init();
     MX_TIM1_Init();
     MX_TIM2_Init();
     MX_TIM13_Init();
     MX_TIM14_Init();
-    /* USER CODE BEGIN 2 */
+    MX_UART4_Init();
+  /* USER CODE BEGIN 2 */
     periph_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
@@ -88,16 +94,16 @@ int main(void)
 
     periph_motor_cfg_t motor_cfg = {
         .leftmotor_dir = 0,
+		.leftmotor_freq_hz = 0,
         .leftmotor_duty = 0,
-        .leftmotor_freq_hz = 0,
         .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
         .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
         .leftmotor_start_pwm = hw_intf_leftmotor_start,
         .leftmotor_stop_pwm = hw_intf_leftmotor_stop,
         .leftmotor_set_dir = hw_intf_leftmotor_set_dir,
         .rightmotor_dir = 0,
+		.rightmotor_freq_hz = 0,
         .rightmotor_duty = 0,
-        .rightmotor_freq_hz = 0,
         .rightmotor_set_pwm_duty = hw_intf_rightmotor_set_pwm_duty,
         .rightmotor_set_pwm_freq = hw_intf_rightmotor_set_pwm_freq,
         .rightmotor_start_pwm = hw_intf_rightmotor_start,
@@ -121,11 +127,12 @@ int main(void)
         .right_resolver_set_mode = hw_intf_right_resolver_set_mode
     };
     periph_resolver_init(resolver_cfg);
-    /* USER CODE END 2 */
+  /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1)
     {
+    	publishCmdVelFromMotorMsg();
         /* USER CODE END WHILE */
         /* USER CODE BEGIN 3 */
     }
@@ -161,8 +168,8 @@ void SystemClock_Config(void)
     }
     /** Initializes the CPU, AHB and APB buses clocks
     */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-                                  | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                                                            |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -180,13 +187,13 @@ void SystemClock_Config(void)
   */
 void Error_Handler(void)
 {
-    /* USER CODE BEGIN Error_Handler_Debug */
+  /* USER CODE BEGIN Error_Handler_Debug */
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1)
     {
     }
-    /* USER CODE END Error_Handler_Debug */
+  /* USER CODE END Error_Handler_Debug */
 }
 #ifdef  USE_FULL_ASSERT
 /**
@@ -198,9 +205,9 @@ void Error_Handler(void)
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-    /* USER CODE BEGIN 6 */
+  /* USER CODE BEGIN 6 */
     /* User can add his own implementation to report the file name and line number,
        ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-    /* USER CODE END 6 */
+  /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
