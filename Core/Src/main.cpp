@@ -127,12 +127,14 @@ int main(void)
         .right_resolver_set_mode = hw_intf_right_resolver_set_mode
     };
     periph_resolver_init(resolver_cfg);
+
+    base_control_set_ros_func(HAL_GetTick);
+    base_control_ros_setup();
   /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1)
     {
-    	publishCmdVelFromMotorMsg();
         /* USER CODE END WHILE */
         /* USER CODE BEGIN 3 */
     }
