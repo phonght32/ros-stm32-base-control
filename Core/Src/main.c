@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "hw_define.h"
 #include "err_code.h"
 #include "hw_intf.h"
 #include "base_control.h"
@@ -92,6 +93,22 @@ int main(void)
         .rightmotor_set_dir = hw_intf_rightmotor_set_dir
     };
     base_control_motor_init(motor_cfg);
+
+    base_control_resolver_cfg_t resolver_cfg = {
+        .left_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .left_resolver_start = hw_intf_left_resolver_start,
+        .left_resolver_stop = hw_intf_left_resolver_stop,
+        .left_resolver_set_counter = hw_intf_left_resolver_set_counter,
+        .left_resolver_get_counter = hw_intf_left_resolver_get_counter,
+        .left_resolver_set_mode = hw_intf_left_resolver_set_mode,
+        .right_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .right_resolver_start = hw_intf_right_resolver_start,
+        .right_resolver_stop = hw_intf_right_resolver_stop,
+        .right_resolver_set_counter = hw_intf_right_resolver_set_counter,
+        .right_resolver_get_counter = hw_intf_right_resolver_get_counter,
+        .right_resolver_set_mode = hw_intf_right_resolver_set_mode
+    };
+    base_control_resolver_init(resolver_cfg);
     /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */

@@ -41,7 +41,7 @@ err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t 
  * @param   duty Duty cycle.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_leftmotor_set_pwm_duty(float duty);
@@ -52,7 +52,7 @@ err_code_t hw_intf_leftmotor_set_pwm_duty(float duty);
  * @param   freq Frequency.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq);
@@ -63,7 +63,7 @@ err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq);
  * @param   None.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_leftmotor_start(void);
@@ -74,7 +74,7 @@ err_code_t hw_intf_leftmotor_start(void);
  * @param   None.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_leftmotor_stop(void);
@@ -85,7 +85,7 @@ err_code_t hw_intf_leftmotor_stop(void);
  * @param   dir Direction.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_leftmotor_set_dir(uint8_t dir);
@@ -96,7 +96,7 @@ err_code_t hw_intf_leftmotor_set_dir(uint8_t dir);
  * @param   duty Duty cycle.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_set_pwm_duty(float duty);
@@ -107,7 +107,7 @@ err_code_t hw_intf_rightmotor_set_pwm_duty(float duty);
  * @param   freq Frequency.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq);
@@ -118,7 +118,7 @@ err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq);
  * @param   None.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_start(void);
@@ -129,7 +129,7 @@ err_code_t hw_intf_rightmotor_start(void);
  * @param   None.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_stop(void);
@@ -140,10 +140,121 @@ err_code_t hw_intf_rightmotor_stop(void);
  * @param   dir Direction.
  *
  * @return
- *      - Handle structure: Success.
+ *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
 err_code_t hw_intf_rightmotor_set_dir(uint8_t dir);
+
+/*
+ * @brief   Start left resolver.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_left_resolver_start(void);
+
+/*
+ * @brief   Stop left resolver.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_left_resolver_stop(void);
+
+/*
+ * @brief   Set resolver counter value.
+ *
+ * @param   value Counter value.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_left_resolver_set_counter(uint32_t value);
+
+/*
+ * @brief   Get resolver counter value.
+ *
+ * @param   value Counter value.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_left_resolver_get_counter(uint32_t *value);
+
+/*
+ * @brief   Set counter mode up.
+ *
+ * @param 	mode Counter mode. 0: Up, 1: Down.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_left_resolver_set_mode(uint8_t mode);
+
+
+/*
+ * @brief   Start right resolver.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_right_resolver_start(void);
+
+/*
+ * @brief   Stop right resolver.
+ *
+ * @param   None.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_right_resolver_stop(void);
+
+/*
+ * @brief   Set resolver counter value.
+ *
+ * @param   value Counter value.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_right_resolver_set_counter(uint32_t value);
+
+/*
+ * @brief   Get resolver counter value.
+ *
+ * @param   value Counter value.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_right_resolver_get_counter(uint32_t *value);
+
+/*
+ * @brief   Set counter mode up.
+ *
+ * @param 	mode Counter mode. 0: Up, 1: Down.
+ *
+ * @return
+ *      - ERR_CODE_SUCCESS: Success.
+ *      - Others:           Fail.
+ */
+err_code_t hw_intf_right_resolver_set_mode(uint8_t mode);
 
 
 #ifdef __cplusplus

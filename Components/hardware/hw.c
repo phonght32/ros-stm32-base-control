@@ -23,6 +23,12 @@
 #define HW_RIGHTMOTOR_GPIO 				GPIOA
 #define HW_RIGHTMOTOR_GPIO_PIN 			GPIO_PIN_2
 
+#define HW_LEFT_RESOLVER_TIM_HANDLE 	htim2
+#define HW_LEFT_RESOLVER_TIM 			TIM2
+
+#define HW_RIGHT_RESOLVER_TIM_HANDLE 	htim1
+#define HW_RIGHT_RESOLVER_TIM 			TIM1
+
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
 {
 	uint8_t buffer[1];
@@ -160,6 +166,117 @@ err_code_t hw_intf_rightmotor_stop(void)
 err_code_t hw_intf_rightmotor_set_dir(uint8_t dir)
 {
 	HAL_GPIO_WritePin(HW_RIGHTMOTOR_GPIO, HW_RIGHTMOTOR_GPIO_PIN, dir);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_left_resolver_start(void)
+{
+	HAL_TIM_Base_Start(&HW_LEFT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_left_resolver_stop(void)
+{
+	HAL_TIM_Base_Stop(&HW_LEFT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_left_resolver_set_counter(uint32_t value)
+{
+	__HAL_TIM_SET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE, value);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_left_resolver_get_counter(uint32_t *value)
+{
+	*value = __HAL_TIM_GET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_left_resolver_set_mode(uint8_t mode)
+{
+	/* Reconfigure timer init parameters */
+	HW_LEFT_RESOLVER_TIM_HANDLE.Instance                 = HW_LEFT_RESOLVER_TIM;
+	HW_LEFT_RESOLVER_TIM_HANDLE.Init.Prescaler           = 0;
+	if (mode == 0) {
+		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	} else {
+		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
+	}
+	HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	HW_LEFT_RESOLVER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	HW_LEFT_RESOLVER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
+	HW_LEFT_RESOLVER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+	/* Keep last counter value */
+	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE);
+
+	/* Set timer counter mode */
+	HAL_TIM_Base_Init(&HW_LEFT_RESOLVER_TIM_HANDLE);
+
+	/* Set timer last counter value */
+	__HAL_TIM_SET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE, last_counter_val);
+
+	return ERR_CODE_SUCCESS;
+}
+
+
+err_code_t hw_intf_right_resolver_start(void)
+{
+	HAL_TIM_Base_Start(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_right_resolver_stop(void)
+{
+	HAL_TIM_Base_Stop(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_right_resolver_set_counter(uint32_t value)
+{
+	__HAL_TIM_SET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE, value);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_right_resolver_get_counter(uint32_t *value)
+{
+	*value = __HAL_TIM_GET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+
+	return ERR_CODE_SUCCESS;
+}
+
+err_code_t hw_intf_right_resolver_set_mode(uint8_t mode)
+{
+	/* Reconfigure timer init parameters */
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Instance                 = HW_RIGHT_RESOLVER_TIM;
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.Prescaler           = 0;
+	if (mode == 0) {
+		HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	} else {
+		HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
+	}
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
+	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+	/* Keep last counter value */
+	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+
+	/* Set timer counter mode */
+	HAL_TIM_Base_Init(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+
+	/* Set timer last counter value */
+	__HAL_TIM_SET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE, last_counter_val);
 
 	return ERR_CODE_SUCCESS;
 }
