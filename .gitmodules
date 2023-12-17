@@ -1,15 +1,10 @@
-[submodule "stm-idf"]
-	path = stm-idf
-	url = git@github.com:phonght32/stm-idf.git
-[submodule "components/stm32_mpu9250"]
-	path = components/stm32_mpu9250
-	url = git@github.com:phonght32/stm32_mpu9250.git
-[submodule "components/stm32_madgwick_imu"]
-	path = components/stm32_madgwick_imu
-	url = git@github.com:phonght32/stm32_madgwick_imu.git
-[submodule "components/stm32_stepmotor"]
-	path = components/stm32_stepmotor
-	url = git@github.com:phonght32/stm32_stepmotor.git
-[submodule "components/stm32_software_resolver"]
-	path = components/stm32_software_resolver
-	url = git@github.com:phonght32/stm32_software_resolver.git
+[submodule "Components/ros-base-control-fw"]
+	path = Components/ros-base-control-fw
+	url = git@github.com:phonght32/ros-base-control-fw.git
+[submodule "Components/mcu_port"]
+	path = Components/mcu_port
+	url = git@github.com:phonght32/mcu_port.git
+	branch = feature/stm32_hal
+[submodule "Components/serial_log"]
+	path = Components/serial_log
+	url = https://github.com/phonght32/serial_log
