@@ -29,6 +29,9 @@
 #define HW_RIGHT_RESOLVER_TIM_HANDLE 	htim1
 #define HW_RIGHT_RESOLVER_TIM 			TIM1
 
+#define RESOLVER_COUNTER_MODE_UP  		0
+#define RESOLVER_COUNTER_MODE_DOWN  	1
+
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
 {
 	uint8_t buffer[1];
@@ -203,7 +206,7 @@ err_code_t hw_intf_left_resolver_set_mode(uint8_t mode)
 	/* Reconfigure timer init parameters */
 	HW_LEFT_RESOLVER_TIM_HANDLE.Instance                 = HW_LEFT_RESOLVER_TIM;
 	HW_LEFT_RESOLVER_TIM_HANDLE.Init.Prescaler           = 0;
-	if (mode == 0) {
+	if (mode == RESOLVER_COUNTER_MODE_UP) {
 		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
 	} else {
 		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;

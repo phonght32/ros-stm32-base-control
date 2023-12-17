@@ -87,11 +87,17 @@ int main(void)
     base_control_imu_filter_init(imu_filter_cfg);
 
     base_control_motor_cfg_t motor_cfg = {
+        .leftmotor_dir = 0,
+        .leftmotor_duty = 0,
+        .leftmotor_freq_hz = 0,
         .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
         .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
         .leftmotor_start_pwm = hw_intf_leftmotor_start,
         .leftmotor_stop_pwm = hw_intf_leftmotor_stop,
         .leftmotor_set_dir = hw_intf_leftmotor_set_dir,
+        .rightmotor_dir = 0,
+        .rightmotor_duty = 0,
+        .rightmotor_freq_hz = 0,
         .rightmotor_set_pwm_duty = hw_intf_rightmotor_set_pwm_duty,
         .rightmotor_set_pwm_freq = hw_intf_rightmotor_set_pwm_freq,
         .rightmotor_start_pwm = hw_intf_rightmotor_start,
