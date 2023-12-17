@@ -82,8 +82,11 @@ int main(void)
     MX_UART4_Init();
     MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
+
     /* Initialize serial log */
+#ifdef USE_SERIAL_LOG
     serial_log_function_set(hw_intf_log_func, HAL_GetTick);
+#endif
 
     /* Initialize IMU */
     periph_imu_cfg_t imu_cfg = {
