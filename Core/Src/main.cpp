@@ -26,11 +26,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "hw_define.h"
 #include "err_code.h"
 #include "hw_intf.h"
-#include "periph.h"
+#include "periph/periph.h"
 #include "base_control.h"
+#include "base_control_hw_define.h"
 //#include "base_control.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
