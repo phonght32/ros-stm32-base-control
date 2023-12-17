@@ -80,6 +80,12 @@ int main(void)
     };
     base_control_imu_init(imu_cfg);
 
+    base_control_imu_filter_cfg_t imu_filter_cfg = {
+        .beta = DEFAULT_MADGWICK_BETA,
+        .sample_freq = DEFAULT_MADGWICK_SAMPLE_FREQ
+    };
+    base_control_imu_filter_init(imu_filter_cfg);
+
     base_control_motor_cfg_t motor_cfg = {
         .leftmotor_set_pwm_duty = hw_intf_leftmotor_set_pwm_duty,
         .leftmotor_set_pwm_freq = hw_intf_leftmotor_set_pwm_freq,
