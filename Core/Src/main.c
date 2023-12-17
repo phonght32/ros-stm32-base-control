@@ -76,7 +76,7 @@ int main(void)
     base_control_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
-        .delay = HAL_Delay
+        .func_delay = HAL_Delay
     };
     base_control_imu_init(imu_cfg);
 
