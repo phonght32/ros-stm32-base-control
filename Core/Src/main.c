@@ -27,7 +27,7 @@
 #include "hw_define.h"
 #include "err_code.h"
 #include "hw_intf.h"
-#include "base_control.h"
+#include "periph.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
@@ -73,20 +73,20 @@ int main(void)
     MX_TIM13_Init();
     MX_TIM14_Init();
     /* USER CODE BEGIN 2 */
-    base_control_imu_cfg_t imu_cfg = {
+    periph_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
         .func_delay = HAL_Delay
     };
-    base_control_imu_init(imu_cfg);
+    periph_imu_init(imu_cfg);
 
-    base_control_imu_filter_cfg_t imu_filter_cfg = {
+    periph_imu_filter_cfg_t imu_filter_cfg = {
         .beta = DEFAULT_MADGWICK_BETA,
         .sample_freq = DEFAULT_MADGWICK_SAMPLE_FREQ
     };
-    base_control_imu_filter_init(imu_filter_cfg);
+    periph_imu_filter_init(imu_filter_cfg);
 
-    base_control_motor_cfg_t motor_cfg = {
+    periph_motor_cfg_t motor_cfg = {
         .leftmotor_dir = 0,
         .leftmotor_duty = 0,
         .leftmotor_freq_hz = 0,
@@ -104,9 +104,9 @@ int main(void)
         .rightmotor_stop_pwm = hw_intf_rightmotor_stop,
         .rightmotor_set_dir = hw_intf_rightmotor_set_dir
     };
-    base_control_motor_init(motor_cfg);
+    periph_motor_init(motor_cfg);
 
-    base_control_resolver_cfg_t resolver_cfg = {
+    periph_resolver_cfg_t resolver_cfg = {
         .left_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
         .left_resolver_start = hw_intf_left_resolver_start,
         .left_resolver_stop = hw_intf_left_resolver_stop,
@@ -120,7 +120,7 @@ int main(void)
         .right_resolver_get_counter = hw_intf_right_resolver_get_counter,
         .right_resolver_set_mode = hw_intf_right_resolver_set_mode
     };
-    base_control_resolver_init(resolver_cfg);
+    periph_resolver_init(resolver_cfg);
     /* USER CODE END 2 */
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
