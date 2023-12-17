@@ -5,6 +5,3 @@
 	path = Components/mcu_port
 	url = git@github.com:phonght32/mcu_port.git
 	branch = feature/stm32_hal
-[submodule "Components/serial_log"]
-	path = Components/serial_log
-	url = https://github.com/phonght32/serial_log
