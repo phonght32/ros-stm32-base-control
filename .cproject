@@ -113,9 +113,10 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Components/hardware"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Components/ros-base-control-fw"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Components/serial_log"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 					</sourceEntries>
 				</configuration>
