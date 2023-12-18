@@ -1,7 +1,10 @@
 #include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 #include "hw_intf.h"
 #include "mpu6050/mpu6050_register.h"
+
+#define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
 #define HW_IMU_I2C hi2c2
 
@@ -23,14 +26,14 @@
 #define HW_RIGHTMOTOR_GPIO 				GPIOA
 #define HW_RIGHTMOTOR_GPIO_PIN 			GPIO_PIN_2
 
-#define HW_LEFT_RESOLVER_TIM_HANDLE 	htim2
-#define HW_LEFT_RESOLVER_TIM 			TIM2
+#define HW_LEFT_ENCODER_TIM_HANDLE 	htim2
+#define HW_LEFT_ENCODER_TIM 			TIM2
 
-#define HW_RIGHT_RESOLVER_TIM_HANDLE 	htim1
-#define HW_RIGHT_RESOLVER_TIM 			TIM1
+#define HW_RIGHT_ENCODER_TIM_HANDLE 	htim1
+#define HW_RIGHT_ENCODER_TIM 			TIM1
 
-#define RESOLVER_COUNTER_MODE_UP  		0
-#define RESOLVER_COUNTER_MODE_DOWN  	1
+#define ENCODER_COUNTER_MODE_UP  		0
+#define ENCODER_COUNTER_MODE_DOWN  	1
 
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
 {
@@ -173,113 +176,118 @@ err_code_t hw_intf_rightmotor_set_dir(uint8_t dir)
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_left_resolver_start(void)
+err_code_t hw_intf_left_encoder_start(void)
 {
-	HAL_TIM_Base_Start(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Start(&HW_LEFT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_left_resolver_stop(void)
+err_code_t hw_intf_left_encoder_stop(void)
 {
-	HAL_TIM_Base_Stop(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Stop(&HW_LEFT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_left_resolver_set_counter(uint32_t value)
+err_code_t hw_intf_left_encoder_set_counter(uint32_t value)
 {
-	__HAL_TIM_SET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE, value);
+	__HAL_TIM_SET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE, value);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_left_resolver_get_counter(uint32_t *value)
+err_code_t hw_intf_left_encoder_get_counter(uint32_t *value)
 {
-	*value = __HAL_TIM_GET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	*value = __HAL_TIM_GET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_left_resolver_set_mode(uint8_t mode)
+err_code_t hw_intf_left_encoder_set_mode(uint8_t mode)
 {
 	/* Reconfigure timer init parameters */
-	HW_LEFT_RESOLVER_TIM_HANDLE.Instance                 = HW_LEFT_RESOLVER_TIM;
-	HW_LEFT_RESOLVER_TIM_HANDLE.Init.Prescaler           = 0;
-	if (mode == RESOLVER_COUNTER_MODE_UP) {
-		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	HW_LEFT_ENCODER_TIM_HANDLE.Instance                 = HW_LEFT_ENCODER_TIM;
+	HW_LEFT_ENCODER_TIM_HANDLE.Init.Prescaler           = 0;
+	if (mode == ENCODER_COUNTER_MODE_UP) {
+		HW_LEFT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
 	} else {
-		HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
+		HW_LEFT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
 	}
-	HW_LEFT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
-	HW_LEFT_RESOLVER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_LEFT_RESOLVER_TIM_HANDLE);
-	HW_LEFT_RESOLVER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
-	HW_LEFT_RESOLVER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	HW_LEFT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	HW_LEFT_ENCODER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_LEFT_ENCODER_TIM_HANDLE);
+	HW_LEFT_ENCODER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
+	HW_LEFT_ENCODER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
 
 	/* Keep last counter value */
-	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE);
 
 	/* Set timer counter mode */
-	HAL_TIM_Base_Init(&HW_LEFT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Init(&HW_LEFT_ENCODER_TIM_HANDLE);
 
 	/* Set timer last counter value */
-	__HAL_TIM_SET_COUNTER(&HW_LEFT_RESOLVER_TIM_HANDLE, last_counter_val);
+	__HAL_TIM_SET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE, last_counter_val);
 
 	return ERR_CODE_SUCCESS;
 }
 
 
-err_code_t hw_intf_right_resolver_start(void)
+err_code_t hw_intf_right_encoder_start(void)
 {
-	HAL_TIM_Base_Start(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Start(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_right_resolver_stop(void)
+err_code_t hw_intf_right_encoder_stop(void)
 {
-	HAL_TIM_Base_Stop(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Stop(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_right_resolver_set_counter(uint32_t value)
+err_code_t hw_intf_right_encoder_set_counter(uint32_t value)
 {
-	__HAL_TIM_SET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE, value);
+	__HAL_TIM_SET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE, value);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_right_resolver_get_counter(uint32_t *value)
+err_code_t hw_intf_right_encoder_get_counter(uint32_t *value)
 {
-	*value = __HAL_TIM_GET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	*value = __HAL_TIM_GET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_right_resolver_set_mode(uint8_t mode)
+err_code_t hw_intf_right_encoder_set_mode(uint8_t mode)
 {
 	/* Reconfigure timer init parameters */
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Instance                 = HW_RIGHT_RESOLVER_TIM;
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.Prescaler           = 0;
+	HW_RIGHT_ENCODER_TIM_HANDLE.Instance                 = HW_RIGHT_ENCODER_TIM;
+	HW_RIGHT_ENCODER_TIM_HANDLE.Init.Prescaler           = 0;
 	if (mode == 0) {
-		HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+		HW_RIGHT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
 	} else {
-		HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
+		HW_RIGHT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_DOWN;
 	}
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_RIGHT_RESOLVER_TIM_HANDLE);
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
-	HW_RIGHT_RESOLVER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	HW_RIGHT_ENCODER_TIM_HANDLE.Init.CounterMode         = TIM_COUNTERMODE_UP;
+	HW_RIGHT_ENCODER_TIM_HANDLE.Init.Period              = __HAL_TIM_GET_AUTORELOAD(&HW_RIGHT_ENCODER_TIM_HANDLE);
+	HW_RIGHT_ENCODER_TIM_HANDLE.Init.ClockDivision       = TIM_CLOCKDIVISION_DIV1;
+	HW_RIGHT_ENCODER_TIM_HANDLE.Init.AutoReloadPreload   = TIM_AUTORELOAD_PRELOAD_DISABLE;
 
 	/* Keep last counter value */
-	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	uint32_t last_counter_val = __HAL_TIM_GET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
 	/* Set timer counter mode */
-	HAL_TIM_Base_Init(&HW_RIGHT_RESOLVER_TIM_HANDLE);
+	HAL_TIM_Base_Init(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
 	/* Set timer last counter value */
-	__HAL_TIM_SET_COUNTER(&HW_RIGHT_RESOLVER_TIM_HANDLE, last_counter_val);
+	__HAL_TIM_SET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE, last_counter_val);
 
 	return ERR_CODE_SUCCESS;
+}
+
+void hw_intf_log_func(uint8_t *data, uint16_t len, uint32_t timeout_ms)
+{
+	HAL_UART_Transmit(&HW_SERIAL_LOG_UART_HANDLE, (uint8_t*)data, len, timeout_ms);
 }

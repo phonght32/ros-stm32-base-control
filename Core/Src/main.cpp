@@ -26,11 +26,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "hw_define.h"
 #include "err_code.h"
 #include "hw_intf.h"
-#include "periph.h"
+#include "periph/periph.h"
 #include "base_control.h"
+#include "base_control_hw_define.h"
+#include "serial_log.h"
 //#include "base_control.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
@@ -41,6 +42,7 @@
 /* USER CODE END PD */
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define USE_SERIAL_LOG
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
@@ -78,7 +80,15 @@ int main(void)
     MX_TIM13_Init();
     MX_TIM14_Init();
     MX_UART4_Init();
+    MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
+
+    /* Initialize serial log */
+#ifdef USE_SERIAL_LOG
+    serial_log_function_set(hw_intf_log_func, HAL_GetTick);
+#endif
+
+    /* Initialize IMU */
     periph_imu_cfg_t imu_cfg = {
         .mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
         .mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
@@ -86,12 +96,14 @@ int main(void)
     };
     periph_imu_init(imu_cfg);
 
+    /* Initialize madgwick filter*/
     periph_imu_filter_cfg_t imu_filter_cfg = {
         .beta = DEFAULT_MADGWICK_BETA,
         .sample_freq = DEFAULT_MADGWICK_SAMPLE_FREQ
     };
     periph_imu_filter_init(imu_filter_cfg);
 
+    /* Initialize step motor */
     periph_motor_cfg_t motor_cfg = {
         .leftmotor_dir = 0,
         .leftmotor_freq_hz = 0,
@@ -112,22 +124,24 @@ int main(void)
     };
     periph_motor_init(motor_cfg);
 
-    periph_resolver_cfg_t resolver_cfg = {
-        .left_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
-        .left_resolver_start = hw_intf_left_resolver_start,
-        .left_resolver_stop = hw_intf_left_resolver_stop,
-        .left_resolver_set_counter = hw_intf_left_resolver_set_counter,
-        .left_resolver_get_counter = hw_intf_left_resolver_get_counter,
-        .left_resolver_set_mode = hw_intf_left_resolver_set_mode,
-        .right_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
-        .right_resolver_start = hw_intf_right_resolver_start,
-        .right_resolver_stop = hw_intf_right_resolver_stop,
-        .right_resolver_set_counter = hw_intf_right_resolver_set_counter,
-        .right_resolver_get_counter = hw_intf_right_resolver_get_counter,
-        .right_resolver_set_mode = hw_intf_right_resolver_set_mode
+    /* Initialize encoder*/
+    periph_encoder_cfg_t encoder_cfg = {
+        .left_encoder_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .left_encoder_start = hw_intf_left_encoder_start,
+        .left_encoder_stop = hw_intf_left_encoder_stop,
+        .left_encoder_set_counter = hw_intf_left_encoder_set_counter,
+        .left_encoder_get_counter = hw_intf_left_encoder_get_counter,
+        .left_encoder_set_mode = hw_intf_left_encoder_set_mode,
+        .right_encoder_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .right_encoder_start = hw_intf_right_encoder_start,
+        .right_encoder_stop = hw_intf_right_encoder_stop,
+        .right_encoder_set_counter = hw_intf_right_encoder_set_counter,
+        .right_encoder_get_counter = hw_intf_right_encoder_get_counter,
+        .right_encoder_set_mode = hw_intf_right_encoder_set_mode
     };
-    periph_resolver_init(resolver_cfg);
+    periph_encoder_init(encoder_cfg);
 
+    /* Initialize ROS*/
     base_control_set_ros_func(HAL_GetTick);
     base_control_ros_setup();
     /* USER CODE END 2 */
@@ -178,8 +192,8 @@ int main(void)
         {
             /* Update motor tick */
             int32_t left_tick, right_tick;
-            periph_resolver_left_get_tick(&left_tick);
-            periph_resolver_right_get_tick(&right_tick);
+            periph_encoder_left_get_tick(&left_tick);
+            periph_encoder_right_get_tick(&right_tick);
             base_control_update_motor_info(left_tick, right_tick);
 
             /* Publish Odom, TF and JointState, */
