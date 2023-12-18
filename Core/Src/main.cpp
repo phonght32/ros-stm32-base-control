@@ -82,7 +82,7 @@ int main(void)
     MX_UART4_Init();
     MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
-    
+
     /* Initialize serial log */
 #ifdef USE_SERIAL_LOG
     serial_log_function_set(hw_intf_log_func, HAL_GetTick);
@@ -125,21 +125,21 @@ int main(void)
     periph_motor_init(motor_cfg);
 
     /* Initialize encoder*/
-    periph_resolver_cfg_t resolver_cfg = {
-        .left_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
-        .left_resolver_start = hw_intf_left_resolver_start,
-        .left_resolver_stop = hw_intf_left_resolver_stop,
-        .left_resolver_set_counter = hw_intf_left_resolver_set_counter,
-        .left_resolver_get_counter = hw_intf_left_resolver_get_counter,
-        .left_resolver_set_mode = hw_intf_left_resolver_set_mode,
-        .right_resolver_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
-        .right_resolver_start = hw_intf_right_resolver_start,
-        .right_resolver_stop = hw_intf_right_resolver_stop,
-        .right_resolver_set_counter = hw_intf_right_resolver_set_counter,
-        .right_resolver_get_counter = hw_intf_right_resolver_get_counter,
-        .right_resolver_set_mode = hw_intf_right_resolver_set_mode
+    periph_encoder_cfg_t encoder_cfg = {
+        .left_encoder_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .left_encoder_start = hw_intf_left_encoder_start,
+        .left_encoder_stop = hw_intf_left_encoder_stop,
+        .left_encoder_set_counter = hw_intf_left_encoder_set_counter,
+        .left_encoder_get_counter = hw_intf_left_encoder_get_counter,
+        .left_encoder_set_mode = hw_intf_left_encoder_set_mode,
+        .right_encoder_max_reload = NUM_PULSE_PER_ROUND * MICROSTEP_DIV,
+        .right_encoder_start = hw_intf_right_encoder_start,
+        .right_encoder_stop = hw_intf_right_encoder_stop,
+        .right_encoder_set_counter = hw_intf_right_encoder_set_counter,
+        .right_encoder_get_counter = hw_intf_right_encoder_get_counter,
+        .right_encoder_set_mode = hw_intf_right_encoder_set_mode
     };
-    periph_resolver_init(resolver_cfg);
+    periph_encoder_init(encoder_cfg);
 
     /* Initialize ROS*/
     base_control_set_ros_func(HAL_GetTick);
@@ -192,8 +192,8 @@ int main(void)
         {
             /* Update motor tick */
             int32_t left_tick, right_tick;
-            periph_resolver_left_get_tick(&left_tick);
-            periph_resolver_right_get_tick(&right_tick);
+            periph_encoder_left_get_tick(&left_tick);
+            periph_encoder_right_get_tick(&right_tick);
             base_control_update_motor_info(left_tick, right_tick);
 
             /* Publish Odom, TF and JointState, */

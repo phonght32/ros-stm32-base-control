@@ -146,7 +146,7 @@ err_code_t hw_intf_rightmotor_stop(void);
 err_code_t hw_intf_rightmotor_set_dir(uint8_t dir);
 
 /*
- * @brief   Start left resolver.
+ * @brief   Start left encoder.
  *
  * @param   None.
  *
@@ -154,10 +154,10 @@ err_code_t hw_intf_rightmotor_set_dir(uint8_t dir);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_left_resolver_start(void);
+err_code_t hw_intf_left_encoder_start(void);
 
 /*
- * @brief   Stop left resolver.
+ * @brief   Stop left encoder.
  *
  * @param   None.
  *
@@ -165,10 +165,10 @@ err_code_t hw_intf_left_resolver_start(void);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_left_resolver_stop(void);
+err_code_t hw_intf_left_encoder_stop(void);
 
 /*
- * @brief   Set resolver counter value.
+ * @brief   Set encoder counter value.
  *
  * @param   value Counter value.
  *
@@ -176,10 +176,10 @@ err_code_t hw_intf_left_resolver_stop(void);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_left_resolver_set_counter(uint32_t value);
+err_code_t hw_intf_left_encoder_set_counter(uint32_t value);
 
 /*
- * @brief   Get resolver counter value.
+ * @brief   Get encoder counter value.
  *
  * @param   value Counter value.
  *
@@ -187,7 +187,7 @@ err_code_t hw_intf_left_resolver_set_counter(uint32_t value);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_left_resolver_get_counter(uint32_t *value);
+err_code_t hw_intf_left_encoder_get_counter(uint32_t *value);
 
 /*
  * @brief   Set counter mode up.
@@ -198,11 +198,11 @@ err_code_t hw_intf_left_resolver_get_counter(uint32_t *value);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_left_resolver_set_mode(uint8_t mode);
+err_code_t hw_intf_left_encoder_set_mode(uint8_t mode);
 
 
 /*
- * @brief   Start right resolver.
+ * @brief   Start right encoder.
  *
  * @param   None.
  *
@@ -210,10 +210,10 @@ err_code_t hw_intf_left_resolver_set_mode(uint8_t mode);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_right_resolver_start(void);
+err_code_t hw_intf_right_encoder_start(void);
 
 /*
- * @brief   Stop right resolver.
+ * @brief   Stop right encoder.
  *
  * @param   None.
  *
@@ -221,10 +221,10 @@ err_code_t hw_intf_right_resolver_start(void);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_right_resolver_stop(void);
+err_code_t hw_intf_right_encoder_stop(void);
 
 /*
- * @brief   Set resolver counter value.
+ * @brief   Set encoder counter value.
  *
  * @param   value Counter value.
  *
@@ -232,10 +232,10 @@ err_code_t hw_intf_right_resolver_stop(void);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_right_resolver_set_counter(uint32_t value);
+err_code_t hw_intf_right_encoder_set_counter(uint32_t value);
 
 /*
- * @brief   Get resolver counter value.
+ * @brief   Get encoder counter value.
  *
  * @param   value Counter value.
  *
@@ -243,7 +243,7 @@ err_code_t hw_intf_right_resolver_set_counter(uint32_t value);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_right_resolver_get_counter(uint32_t *value);
+err_code_t hw_intf_right_encoder_get_counter(uint32_t *value);
 
 /*
  * @brief   Set counter mode up.
@@ -254,7 +254,7 @@ err_code_t hw_intf_right_resolver_get_counter(uint32_t *value);
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_right_resolver_set_mode(uint8_t mode);
+err_code_t hw_intf_right_encoder_set_mode(uint8_t mode);
 
 /*
  * @brief   Serial log function interface.
