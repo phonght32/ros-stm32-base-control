@@ -6,7 +6,7 @@
 
 #define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
-#define HW_IMU_I2C hi2c2
+#define HW_IMU_I2C 						hi2c2
 
 #define TIMER_MAX_RELOAD 				0xFFFF
 
@@ -26,14 +26,14 @@
 #define HW_RIGHTMOTOR_GPIO 				GPIOA
 #define HW_RIGHTMOTOR_GPIO_PIN 			GPIO_PIN_2
 
-#define HW_LEFT_ENCODER_TIM_HANDLE 	htim2
+#define HW_LEFT_ENCODER_TIM_HANDLE 		htim2
 #define HW_LEFT_ENCODER_TIM 			TIM2
 
 #define HW_RIGHT_ENCODER_TIM_HANDLE 	htim1
 #define HW_RIGHT_ENCODER_TIM 			TIM1
 
 #define ENCODER_COUNTER_MODE_UP  		0
-#define ENCODER_COUNTER_MODE_DOWN  	1
+#define ENCODER_COUNTER_MODE_DOWN  		1
 
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
 {
