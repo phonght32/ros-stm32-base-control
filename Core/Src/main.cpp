@@ -46,10 +46,6 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern uint32_t base_control_time_update[10];
-extern float zero_velocity[WHEEL_NUM];            /*!< Velocity to stop motor */
-extern float goal_velocity[WHEEL_NUM];            /*!< Velocity to control motor */
-extern float goal_velocity_from_cmd[WHEEL_NUM];   /*!< Velocity receive from "cmd_vel" topic */
-extern float goal_velocity_from_motor[WHEEL_NUM]; /*!< Velocity read from encoder */
 /* USER CODE END PV */
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -173,11 +169,11 @@ int main(void)
 			base_control_update_goal_vel();
 			if ((t - base_control_time_update[CONTROL_MOTOR_TIMEOUT_TIME_INDEX]) > CONTROL_MOTOR_TIMEOUT)
 			{
-				base_control_set_vel(zero_velocity);
+				base_control_set_zero_vel();
 			}
 			else
 			{
-				base_control_set_vel(goal_velocity);
+				base_control_set_goal_vel();
 			}
 			base_control_time_update[CONTROL_MOTOR_TIME_INDEX] = t;
 		}
@@ -185,7 +181,7 @@ int main(void)
 		/* Publish motor speed to "cmd_vel_motor" topic */
 		if ((t - base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX]) >= (1000 / CMD_VEL_PUBLISH_FREQUENCY))
 		{
-			base_control_get_motor_speed(goal_velocity_from_motor);
+			base_control_get_motor_speed();
 			base_control_publish_cmdvel_from_motor_msg();
 
 			base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX] = t;
