@@ -45,6 +45,11 @@
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+extern uint32_t base_control_time_update[10];
+extern float zero_velocity[WHEEL_NUM];            /*!< Velocity to stop motor */
+extern float goal_velocity[WHEEL_NUM];            /*!< Velocity to control motor */
+extern float goal_velocity_from_cmd[WHEEL_NUM];   /*!< Velocity receive from "cmd_vel" topic */
+extern float goal_velocity_from_motor[WHEEL_NUM]; /*!< Velocity read from encoder */
 /* USER CODE END PV */
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -157,10 +162,10 @@ int main(void)
 		base_control_update_time();
 
 		/* Update variable */
-		base_control_update_variable(base_control_node_handle.connected());
+		base_control_update_variable(base_control_connect_status());
 
 		/* Update TF */
-		base_control_update_tf_prefix(base_control_node_handle.connected());
+		base_control_update_tf_prefix(base_control_connect_status());
 
 		/* Control motor*/
 		if ((t - base_control_time_update[CONTROL_MOTOR_TIME_INDEX] >= 1000 / CONTROL_MOTOR_SPEED_FREQUENCY))
@@ -212,10 +217,10 @@ int main(void)
 		base_control_send_log_msg();
 
 		/* Spin NodeHandle to keep synchorus */
-		base_control_node_handle.spinOnce();
+		base_control_spin_once();
 
 		/* Keep rosserial connection */
-		base_control_wait_serial_link(base_control_node_handle.connected());
+		base_control_wait_serial_link(base_control_connect_status());
 	}
 	/* USER CODE END 3 */
 }
