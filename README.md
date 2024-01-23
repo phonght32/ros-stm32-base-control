@@ -1,4 +1,4 @@
-# ROS Base control using STM-IDF
+# ROS - Mobile robot base control
 ## Overview
 
 This firmware implements base control for STM32 to communicate with ROS over rosserial protocol using STM32CubeIDE.
@@ -10,6 +10,10 @@ This repository contains many submodules, you need to install all of them to use
 ```
 git clone --recursive git@github.com:phonght32/ros-stm32-base-control.git
 ```
+
+## Build environment
+
+This project build on STM32CubeIDE.
 
 ## Problem
 
