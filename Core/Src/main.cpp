@@ -41,11 +41,26 @@
 /* USER CODE END PD */
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define USE_SERIAL_LOG
+// #define USE_SERIAL_LOG
+
+/* Time update index */
+#define CONTROL_MOTOR_TIME_INDEX                0       /*!< Time index control motor */
+#define CMD_VEL_PUBLISH_TIME_INDEX              1       /*!< Time index publish velocity */
+#define DRIVE_INFORMATION_PUBLISH_TIME_INDEX    2       /*!< Time index publish drive information */
+#define IMU_PUBLISH_TIME_INDEX                  3       /*!< Time index publish IMU information */
+#define LOG_PUBLISH_TIME_INDEX                  4       /*!< Time index publish log information */
+
+/* Frequency of publish/subscribe */
+#define CONTROL_MOTOR_SPEED_FREQUENCY          	10      /*!< Frequency in Hz to control motor */
+#define CONTROL_MOTOR_TIMEOUT                  	500     /*!< Period in ms to check control motor timeout */
+#define IMU_PUBLISH_FREQUENCY                  	15      /*!< Frequency in Hz to publish IMU information */
+#define CMD_VEL_PUBLISH_FREQUENCY              	5       /*!< Frequency in Hz to publish robot velocity */
+#define DRIVE_INFORMATION_PUBLISH_FREQUENCY    	5       /*!< Frequency in Hz to publish drive information */
+#define DEBUG_LOG_FREQUENCY                    	10      /*!< Frequency in Hz to send log debug messages */
 /* USER CODE END PM */
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern uint32_t base_control_time_update[10];
+uint32_t base_control_time_update[10];
 /* USER CODE END PV */
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -142,7 +157,7 @@ int main(void)
 	periph_encoder_init(encoder_cfg);
 
 	/* Initialize ROS*/
-	base_control_set_ros_func(HAL_GetTick);
+	base_control_set_ros_func(HAL_GetTick, HAL_Delay);
 	base_control_ros_setup();
 
 	/* Initialize base control */
@@ -170,7 +185,7 @@ int main(void)
 		if ((t - base_control_time_update[CONTROL_MOTOR_TIME_INDEX] >= 1000 / CONTROL_MOTOR_SPEED_FREQUENCY))
 		{
 			base_control_update_goal_vel();
-			if ((t - base_control_time_update[CONTROL_MOTOR_TIMEOUT_TIME_INDEX]) > CONTROL_MOTOR_TIMEOUT)
+			if ((t - base_control_get_time_callback_cmdvel()) > CONTROL_MOTOR_TIMEOUT)
 			{
 				base_control_set_zero_vel();
 			}
