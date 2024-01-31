@@ -184,9 +184,7 @@ int main(void)
 		/* Publish motor speed to "cmd_vel_motor" topic */
 		if ((t - base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX]) >= (1000 / CMD_VEL_PUBLISH_FREQUENCY))
 		{
-			base_control_get_motor_speed();
 			base_control_publish_cmdvel_from_motor_msg();
-
 			base_control_time_update[CMD_VEL_PUBLISH_TIME_INDEX] = t;
 		}
 
@@ -201,7 +199,6 @@ int main(void)
 		/* Publish IMU to "imu" topic */
 		if ((t - base_control_time_update[IMU_PUBLISH_TIME_INDEX]) >= (1000 / IMU_PUBLISH_FREQUENCY))
 		{
-			periph_imu_update_quat();
 			base_control_publish_imu_msg();
 			base_control_time_update[IMU_PUBLISH_TIME_INDEX] = t;
 		}
