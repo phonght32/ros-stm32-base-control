@@ -144,6 +144,9 @@ int main(void)
 	/* Initialize ROS*/
 	base_control_set_ros_func(HAL_GetTick);
 	base_control_ros_setup();
+
+	/* Initialize base control */
+	base_control_setup();
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
@@ -190,12 +193,6 @@ int main(void)
 		/* Publish driver information */
 		if ((t - base_control_time_update[DRIVE_INFORMATION_PUBLISH_TIME_INDEX]) >= (1000 / DRIVE_INFORMATION_PUBLISH_FREQUENCY))
 		{
-			/* Update motor tick */
-			int32_t left_tick, right_tick;
-			periph_encoder_left_get_tick(&left_tick);
-			periph_encoder_right_get_tick(&right_tick);
-			base_control_update_motor_info(left_tick, right_tick);
-
 			/* Publish Odom, TF and JointState, */
 			base_control_publish_drive_info();
 			base_control_time_update[DRIVE_INFORMATION_PUBLISH_TIME_INDEX] = t;

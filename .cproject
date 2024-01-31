@@ -52,10 +52,10 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/hardware}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/mcu_port}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/differential_drive}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/encoder}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu_filter}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/kinematic_model}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/periph}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/rosserial/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/stepmotor}&quot;"/>
