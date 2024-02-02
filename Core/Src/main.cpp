@@ -42,18 +42,19 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 // #define USE_SERIAL_LOG
-
 /* Time update index */
 #define CONTROL_MOTOR_TIME_INDEX                0       /*!< Time index control motor */
 #define CMD_VEL_PUBLISH_TIME_INDEX              1       /*!< Time index publish velocity */
 #define DRIVE_INFORMATION_PUBLISH_TIME_INDEX    2       /*!< Time index publish drive information */
 #define IMU_PUBLISH_TIME_INDEX                  3       /*!< Time index publish IMU information */
-#define LOG_PUBLISH_TIME_INDEX                  4       /*!< Time index publish log information */
+#define IMU_UPDATE_TIME_INDEX 					4		/*!< Time index update IMU */
+#define LOG_PUBLISH_TIME_INDEX                  5       /*!< Time index publish log information */
 
 /* Frequency of publish/subscribe */
 #define CONTROL_MOTOR_SPEED_FREQUENCY          	10      /*!< Frequency in Hz to control motor */
 #define CONTROL_MOTOR_TIMEOUT                  	500     /*!< Period in ms to check control motor timeout */
 #define IMU_PUBLISH_FREQUENCY                  	15      /*!< Frequency in Hz to publish IMU information */
+#define IMU_UPDATE_FREQQUENCY 					1000	/*!< Frequency in Hz to update IMU information */
 #define CMD_VEL_PUBLISH_FREQUENCY              	5       /*!< Frequency in Hz to publish robot velocity */
 #define DRIVE_INFORMATION_PUBLISH_FREQUENCY    	5       /*!< Frequency in Hz to publish drive information */
 #define DEBUG_LOG_FREQUENCY                    	10      /*!< Frequency in Hz to send log debug messages */
@@ -209,6 +210,14 @@ int main(void)
 			/* Publish Odom, TF and JointState, */
 			base_control_publish_drive_info();
 			base_control_time_update[DRIVE_INFORMATION_PUBLISH_TIME_INDEX] = t;
+		}
+
+		/* Update IMU */
+		if ((t - base_control_time_update[IMU_UPDATE_TIME_INDEX]) >= (1000 / IMU_UPDATE_FREQQUENCY))
+		{
+			/* Publish Odom, TF and JointState, */
+			base_control_update_imu();
+			base_control_time_update[IMU_UPDATE_TIME_INDEX] = t;
 		}
 
 		/* Publish IMU to "imu" topic */
