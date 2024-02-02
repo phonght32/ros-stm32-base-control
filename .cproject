@@ -45,20 +45,21 @@
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.679762318" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="../Core/Inc"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Components/ros-base-control-fw/imu}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Components/mcu_port}&quot;"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Components/ros-base-control-fw}&quot;"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/hardware}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu_filter}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/stepmotor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/rosserial/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/periph}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/mcu_port}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/differential_drive}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/encoder}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/imu_filter}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/periph}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/rosserial/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/ros-base-control-fw/stepmotor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1688694409" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
