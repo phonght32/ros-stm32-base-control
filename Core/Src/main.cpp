@@ -106,9 +106,14 @@ int main(void)
 
 	/* Initialize IMU */
 	periph_imu_cfg_t imu_cfg = {
-		.mpu6050_read_bytes = hw_intf_mpu6050_read_bytes,
-		.mpu6050_write_bytes = hw_intf_mpu6050_write_bytes,
-		.func_delay = HAL_Delay
+		.clksel = MPU6050_CLKSEL_X_GYRO_REF,
+		.dlpf_cfg = MPU6050_44ACCEL_42GYRO_BW_HZ,
+		.sleep_mode = MPU6050_DISABLE_SLEEP_MODE,
+		.gfs_sel = MPU6050_GFS_SEL_2000,
+		.afs_sel = MPU6050_AFS_SEL_8G,
+		.i2c_send = hw_intf_mpu6050_write_bytes,
+		.i2c_recv = hw_intf_mpu6050_read_bytes,
+		.delay = HAL_Delay
 	};
 	periph_imu_init(imu_cfg);
 

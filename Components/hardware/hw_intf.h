@@ -13,13 +13,12 @@ extern "C" {
  * @param   reg_addr Register address.
  * @param 	buf Buffer data.
  * @param 	len Length.
- * @param 	timeout_ms Timeout in miliseconds.
  *
  * @return
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms);
+err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len);
 
 /*
  * @brief   MPU6050 write bytes function.
@@ -27,13 +26,12 @@ err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t l
  * @param   reg_addr Register address.
  * @param 	buf Buffer data.
  * @param 	len Length.
- * @param 	timeout_ms Timeout in miliseconds.
  *
  * @return
  *      - ERR_CODE_SUCCESS: Success.
  *      - Others:           Fail.
  */
-err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms);
+err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len);
 
 /*
  * @brief   Set PWM duty cycle of left motor.

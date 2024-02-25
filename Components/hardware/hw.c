@@ -2,7 +2,6 @@
 #include "tim.h"
 #include "usart.h"
 #include "hw_intf.h"
-#include "mpu6050/mpu6050_register.h"
 
 #define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
@@ -35,18 +34,20 @@
 #define ENCODER_COUNTER_MODE_UP  		0
 #define ENCODER_COUNTER_MODE_DOWN  		1
 
-err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
+#define MPU6050_ADDR 					(0x68<<1)
+
+err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
 {
 	uint8_t buffer[1];
 	buffer[0] = reg_addr;
 
-	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buffer, 1, timeout_ms);
-	HAL_I2C_Master_Receive(&HW_IMU_I2C, MPU6050_ADDR, buf, len, timeout_ms);
+	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buffer, 1, 100);
+	HAL_I2C_Master_Receive(&HW_IMU_I2C, MPU6050_ADDR, buf, len, 100);
 
 	return ERR_CODE_SUCCESS;
 }
 
-err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len, uint32_t timeout_ms)
+err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
 {
 	uint8_t buf_send[len + 1];
 	buf_send[0] = reg_addr;
@@ -55,7 +56,7 @@ err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t 
 		buf_send[i + 1] = buf[i];
 	}
 
-	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buf_send, len + 1, timeout_ms);
+	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buf_send, len + 1, 100);
 
 	return ERR_CODE_SUCCESS;
 }
