@@ -4,3 +4,6 @@
 [submodule "Portable/mcu_port"]
 	path = Portable/mcu_port
 	url = git@github.com:phonght32/mcu_port.git
+[submodule "rosserial_stm32"]
+	path = rosserial_stm32
+	url = git@github.com:phonght32/rosserial_stm32.git
