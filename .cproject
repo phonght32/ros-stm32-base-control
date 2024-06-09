@@ -53,7 +53,6 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
@@ -77,7 +76,6 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
@@ -144,7 +142,6 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Components/serial_log}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
@@ -175,7 +172,6 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Components"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="HwIntf"/>

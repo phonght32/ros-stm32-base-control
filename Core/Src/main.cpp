@@ -31,7 +31,6 @@
 #include "Periph.h"
 #include "BaseControl.h"
 #include "BaseControl_Define.h"
-#include "serial_log.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
