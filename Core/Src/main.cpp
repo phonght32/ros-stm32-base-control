@@ -27,10 +27,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "err_code.h"
-#include "hw_intf.h"
-#include "periph/periph.h"
-#include "base_control.h"
-#include "base_control_hw_define.h"
+#include "BaseControl_HwIntf.h"
+#include "Periph.h"
+#include "BaseControl.h"
+#include "BaseControl_Define.h"
 #include "serial_log.h"
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
@@ -163,7 +163,6 @@ int main(void)
 	periph_encoder_init(encoder_cfg);
 
 	/* Initialize ROS*/
-	base_control_set_ros_func(HAL_GetTick, HAL_Delay);
 	base_control_ros_setup();
 
 	/* Initialize base control */

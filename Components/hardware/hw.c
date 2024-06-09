@@ -1,7 +1,8 @@
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
-#include "hw_intf.h"
+#include "BaseControl_HwIntf.h"
+#include "err_code.h"
 
 #define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
@@ -35,6 +36,16 @@
 #define ENCODER_COUNTER_MODE_DOWN  		1
 
 #define MPU6050_ADDR 					(0x68<<1)
+
+uint32_t hw_intf_get_time_ms(void)
+{
+	HAL_GetTick();
+}
+
+void hw_intf_delay_ms(uint32_t time_ms)
+{
+	HAL_Delay(time_ms);
+}
 
 err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
 {

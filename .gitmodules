@@ -5,3 +5,6 @@
 [submodule "Components/serial_log"]
 	path = Components/serial_log
 	url = git@github.com:phonght32/serial_log.git
+[submodule "ros-base-control-fw"]
+	path = ros-base-control-fw
+	url = git@github.com:phonght32/ros-base-control-fw.git
