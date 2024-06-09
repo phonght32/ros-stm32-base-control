@@ -4,3 +4,6 @@
 [submodule "ros-base-control-fw"]
 	path = ros-base-control-fw
 	url = git@github.com:phonght32/ros-base-control-fw.git
+[submodule "Portable/mcu_port"]
+	path = Portable/mcu_port
+	url = git@github.com:phonght32/mcu_port.git

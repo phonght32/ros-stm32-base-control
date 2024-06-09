@@ -39,7 +39,7 @@
 
 uint32_t hw_intf_get_time_ms(void)
 {
-	HAL_GetTick();
+	return HAL_GetTick();
 }
 
 void hw_intf_delay_ms(uint32_t time_ms)
