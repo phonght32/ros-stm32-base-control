@@ -172,11 +172,11 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="HwIntf"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="ros-base-control-fw"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="rosserial_stm32"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="HwIntf"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="ros-base-control-fw"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
