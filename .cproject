@@ -54,16 +54,16 @@
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Kinematic/differential_drive}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/encoder}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/mpu6050}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Periph}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Portable/mcu_port}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/HwIntf}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/rosserial_stm32/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/config}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/stepmotor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/encoder}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/sensor/mpu6050}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/filter/imu_madgwick}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/kinematic/differential_drive}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1688694409" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>
@@ -77,16 +77,16 @@
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Kinematic/differential_drive}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/encoder}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/mpu6050}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Periph}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Portable/mcu_port}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/HwIntf}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/rosserial_stm32/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/config}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/stepmotor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/encoder}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/kinematic/differential_drive}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/filter/imu_madgwick}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/sensor/mpu6050}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols.587598032" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="DEBUG"/>
@@ -143,16 +143,16 @@
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F4xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Actuator/stepmotor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Filter/imu_madgwick}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Kinematic/differential_drive}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/encoder}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Sensor/mpu6050}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/Periph}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/Portable/mcu_port}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/HwIntf}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/rosserial_stm32/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/config}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/stepmotor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/motor/encoder}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/sensor/mpu6050}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/imu/filter/imu_madgwick}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ros-stm32-base-control/ros-base-control-fw/kinematic/differential_drive}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.232286525" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

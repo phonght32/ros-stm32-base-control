@@ -47,7 +47,7 @@ void hw_intf_delay_ms(uint32_t time_ms)
 	HAL_Delay(time_ms);
 }
 
-err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
+mpu6050_status_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
 {
 	uint8_t buffer[1];
 	buffer[0] = reg_addr;
@@ -55,10 +55,10 @@ err_code_t hw_intf_mpu6050_read_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t l
 	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buffer, 1, 100);
 	HAL_I2C_Master_Receive(&HW_IMU_I2C, MPU6050_ADDR, buf, len, 100);
 
-	return ERR_CODE_SUCCESS;
+	return MPU6050_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
+mpu6050_status_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t len)
 {
 	uint8_t buf_send[len + 1];
 	buf_send[0] = reg_addr;
@@ -69,7 +69,7 @@ err_code_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uint16_t 
 
 	HAL_I2C_Master_Transmit(&HW_IMU_I2C, MPU6050_ADDR, buf_send, len + 1, 100);
 
-	return ERR_CODE_SUCCESS;
+	return MPU6050_STATUS_SUCCESS;
 }
 
 err_code_t hw_intf_leftmotor_set_pwm_duty(float duty)
