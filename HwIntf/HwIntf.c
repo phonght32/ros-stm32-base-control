@@ -1,7 +1,7 @@
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
-#include "BaseControl_HwIntf.h"
+#include "hw_intf.h"
 #include "err_code.h"
 
 #define HW_SERIAL_LOG_UART_HANDLE 		huart3
