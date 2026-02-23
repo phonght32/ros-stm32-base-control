@@ -4,3 +4,6 @@
 [submodule "rosserial_stm32"]
 	path = rosserial_stm32
 	url = git@github.com:phonght32/rosserial_stm32.git
+[submodule "ros-base-control-fw"]
+	path = ros-base-control-fw
+	url = git@github.com:phonght32/ros-base-control-fw.git
