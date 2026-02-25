@@ -2,7 +2,6 @@
 #include "tim.h"
 #include "usart.h"
 #include "hw_intf.h"
-#include "err_code.h"
 
 #define HW_SERIAL_LOG_UART_HANDLE 		huart3
 
@@ -72,7 +71,7 @@ mpu6050_status_t hw_intf_mpu6050_write_bytes(uint8_t reg_addr, uint8_t *buf, uin
 	return MPU6050_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_leftmotor_set_pwm_duty(float duty)
+stepmotor_status_t hw_intf_leftmotor_set_pwm_duty(float duty)
 {
 	/* Calculate PWM compare value */
 	uint32_t compare_value;
@@ -81,10 +80,10 @@ err_code_t hw_intf_leftmotor_set_pwm_duty(float duty)
 	/* Configure PWM compare value */
 	__HAL_TIM_SET_COMPARE(&HW_LEFTMOTOR_TIM_HANDLE, HW_LEFTMOTOR_TIM_CHANNEL, compare_value);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq)
+stepmotor_status_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq)
 {
 	if (freq == 0)
 	{
@@ -92,7 +91,7 @@ err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq)
 		__HAL_TIM_SET_PRESCALER(&HW_LEFTMOTOR_TIM_HANDLE, 0);
 		__HAL_TIM_SET_COMPARE(&HW_LEFTMOTOR_TIM_HANDLE, HW_LEFTMOTOR_TIM_CHANNEL, 0);
 
-		return ERR_CODE_SUCCESS;
+		return STEPMOTOR_STATUS_SUCCESS;
 	}
 
 	/* Calculate Timer PWM parameters. When change timer period you also
@@ -106,31 +105,31 @@ err_code_t hw_intf_leftmotor_set_pwm_freq(uint32_t freq)
 	__HAL_TIM_SET_AUTORELOAD(&HW_LEFTMOTOR_TIM_HANDLE, timer_period);
 	__HAL_TIM_SET_PRESCALER(&HW_LEFTMOTOR_TIM_HANDLE, timer_prescaler);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_leftmotor_start(void)
+stepmotor_status_t hw_intf_leftmotor_start(void)
 {
 	HAL_TIM_PWM_Start(&HW_LEFTMOTOR_TIM_HANDLE, HW_LEFTMOTOR_TIM_CHANNEL);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_leftmotor_stop(void)
+stepmotor_status_t hw_intf_leftmotor_stop(void)
 {
 	HAL_TIM_PWM_Stop(&HW_LEFTMOTOR_TIM_HANDLE, HW_LEFTMOTOR_TIM_CHANNEL);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_leftmotor_set_dir(uint8_t dir)
+stepmotor_status_t hw_intf_leftmotor_set_dir(uint8_t dir)
 {
 	HAL_GPIO_WritePin(HW_LEFTMOTOR_GPIO, HW_LEFTMOTOR_GPIO_PIN, dir);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_rightmotor_set_pwm_duty(float duty)
+stepmotor_status_t hw_intf_rightmotor_set_pwm_duty(float duty)
 {
 	/* Calculate PWM compare value */
 	uint32_t compare_value;
@@ -139,10 +138,10 @@ err_code_t hw_intf_rightmotor_set_pwm_duty(float duty)
 	/* Configure PWM compare value */
 	__HAL_TIM_SET_COMPARE(&HW_RIGHTMOTOR_TIM_HANDLE, HW_RIGHTMOTOR_TIM_CHANNEL, compare_value);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq)
+stepmotor_status_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq)
 {
 	if (freq == 0)
 	{
@@ -150,7 +149,7 @@ err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq)
 		__HAL_TIM_SET_PRESCALER(&HW_RIGHTMOTOR_TIM_HANDLE, 0);
 		__HAL_TIM_SET_COMPARE(&HW_RIGHTMOTOR_TIM_HANDLE, HW_RIGHTMOTOR_TIM_CHANNEL, 0);
 
-		return ERR_CODE_SUCCESS;
+		return STEPMOTOR_STATUS_SUCCESS;
 	}
 
 	/* Calculate Timer PWM parameters. When change timer period you also
@@ -164,59 +163,59 @@ err_code_t hw_intf_rightmotor_set_pwm_freq(uint32_t freq)
 	__HAL_TIM_SET_AUTORELOAD(&HW_RIGHTMOTOR_TIM_HANDLE, timer_period);
 	__HAL_TIM_SET_PRESCALER(&HW_RIGHTMOTOR_TIM_HANDLE, timer_prescaler);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_rightmotor_start(void)
+stepmotor_status_t hw_intf_rightmotor_start(void)
 {
 	HAL_TIM_PWM_Start(&HW_RIGHTMOTOR_TIM_HANDLE, HW_RIGHTMOTOR_TIM_CHANNEL);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_rightmotor_stop(void)
+stepmotor_status_t hw_intf_rightmotor_stop(void)
 {
 	HAL_TIM_PWM_Stop(&HW_RIGHTMOTOR_TIM_HANDLE, HW_RIGHTMOTOR_TIM_CHANNEL);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_rightmotor_set_dir(uint8_t dir)
+stepmotor_status_t hw_intf_rightmotor_set_dir(uint8_t dir)
 {
 	HAL_GPIO_WritePin(HW_RIGHTMOTOR_GPIO, HW_RIGHTMOTOR_GPIO_PIN, dir);
 
-	return ERR_CODE_SUCCESS;
+	return STEPMOTOR_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_left_encoder_start(void)
+encoder_status_t hw_intf_left_encoder_start(void)
 {
 	HAL_TIM_Base_Start(&HW_LEFT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_left_encoder_stop(void)
+encoder_status_t hw_intf_left_encoder_stop(void)
 {
 	HAL_TIM_Base_Stop(&HW_LEFT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_left_encoder_set_counter(uint32_t value)
+encoder_status_t hw_intf_left_encoder_set_counter(uint32_t value)
 {
 	__HAL_TIM_SET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE, value);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_left_encoder_get_counter(uint32_t *value)
+encoder_status_t hw_intf_left_encoder_get_counter(uint32_t *value)
 {
 	*value = __HAL_TIM_GET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_left_encoder_set_mode(uint8_t mode)
+encoder_status_t hw_intf_left_encoder_set_mode(uint8_t mode)
 {
 	/* Reconfigure timer init parameters */
 	HW_LEFT_ENCODER_TIM_HANDLE.Instance                 = HW_LEFT_ENCODER_TIM;
@@ -240,39 +239,39 @@ err_code_t hw_intf_left_encoder_set_mode(uint8_t mode)
 	/* Set timer last counter value */
 	__HAL_TIM_SET_COUNTER(&HW_LEFT_ENCODER_TIM_HANDLE, last_counter_val);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
 
-err_code_t hw_intf_right_encoder_start(void)
+encoder_status_t hw_intf_right_encoder_start(void)
 {
 	HAL_TIM_Base_Start(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_right_encoder_stop(void)
+encoder_status_t hw_intf_right_encoder_stop(void)
 {
 	HAL_TIM_Base_Stop(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_right_encoder_set_counter(uint32_t value)
+encoder_status_t hw_intf_right_encoder_set_counter(uint32_t value)
 {
 	__HAL_TIM_SET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE, value);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_right_encoder_get_counter(uint32_t *value)
+encoder_status_t hw_intf_right_encoder_get_counter(uint32_t *value)
 {
 	*value = __HAL_TIM_GET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t hw_intf_right_encoder_set_mode(uint8_t mode)
+encoder_status_t hw_intf_right_encoder_set_mode(uint8_t mode)
 {
 	/* Reconfigure timer init parameters */
 	HW_RIGHT_ENCODER_TIM_HANDLE.Instance                 = HW_RIGHT_ENCODER_TIM;
@@ -296,7 +295,7 @@ err_code_t hw_intf_right_encoder_set_mode(uint8_t mode)
 	/* Set timer last counter value */
 	__HAL_TIM_SET_COUNTER(&HW_RIGHT_ENCODER_TIM_HANDLE, last_counter_val);
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
 void hw_intf_log_func(uint8_t *data, uint16_t len, uint32_t timeout_ms)
